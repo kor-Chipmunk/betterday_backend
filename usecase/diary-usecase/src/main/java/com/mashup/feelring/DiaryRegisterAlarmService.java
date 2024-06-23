@@ -19,6 +19,6 @@ public class DiaryRegisterAlarmService implements DiaryRegisterAlarmUsecase {
     public Diary registerAlarm(Request request) {
         Diary registeredAlarmDiary = diaryPort.findByUid(request.getUid());
         registeredAlarmDiary.registerAlarm(request.getAlarmUrl());
-        return registeredAlarmDiary;
+        return diaryPort.save(registeredAlarmDiary);
     }
 }
