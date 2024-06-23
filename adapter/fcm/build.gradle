@@ -1,0 +1,7 @@
+dependencies {
+    // Firebase SDK
+    implementation 'com.google.firebase:firebase-admin:9.3.0'
+
+    implementation(project(":core"))
+    implementation(project(":adapter:core"))
+}

@@ -1,0 +1,12 @@
+gcp:
+  firebase:
+    service-account: classpath:key/betterday-2395b-firebase-adminsdk-2rd3i-20cd6518d9.json
+
+spring:
+  task:
+    execution:
+      pool:
+        core-size: 10
+        queue-capacity: 20
+        max-size: 100
+        keep-alive: 30s
