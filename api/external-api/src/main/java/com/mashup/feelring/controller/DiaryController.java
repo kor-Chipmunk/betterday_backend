@@ -1,16 +1,9 @@
 package com.mashup.feelring.controller;
 
 import com.mashup.feelring.AuthUser;
-import com.mashup.feelring.DiaryCreateUsecase;
-import com.mashup.feelring.DiaryDeleteUsecase;
-import com.mashup.feelring.DiaryReadUsecase;
-import com.mashup.feelring.DiaryRegisterAlarmUsecase;
-import com.mashup.feelring.DiaryUpdateUsecase;
+import com.mashup.feelring.*;
 import com.mashup.feelring.diary.model.Diary;
-import com.mashup.feelring.model.diary.DiaryCreateRequest;
-import com.mashup.feelring.model.diary.DiaryDto;
-import com.mashup.feelring.model.diary.DiaryRegisterAlarmRequest;
-import com.mashup.feelring.model.diary.DiaryUpdateRequest;
+import com.mashup.feelring.model.diary.*;
 import com.mashup.feelring.user.model.User;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
@@ -46,17 +39,16 @@ public class DiaryController {
 
     @PostMapping
     ResponseEntity<DiaryDto> create(
-        @RequestBody DiaryCreateRequest request,
-        @AuthUser User user
+            @RequestBody DiaryCreateRequest request,
+            @AuthUser User user
     ) {
         Diary createdDiary = diaryCreateUsecase.create(
                 new DiaryCreateUsecase.Request(
-                    request.getUid(),
-                    user.getId().getValue(),
-                    request.getContent(),
-                    request.getWeather(),
-                    request.getHappiness()
-            )
+                        request.getUid(),
+                        user.getId().getValue(),
+                        request.getContent(),
+                        request.getWeather()
+                )
         );
         return ResponseEntity.ok(DiaryDto.from(createdDiary, user));
     }
@@ -69,11 +61,10 @@ public class DiaryController {
     ) {
         Diary updatedDiary = diaryUpdateUsecase.update(
                 new DiaryUpdateUsecase.Request(
-                    request.getUid(),
-                    request.getContent(),
-                    request.getWeather(),
-                    request.getHappiness()
-            )
+                        request.getUid(),
+                        request.getContent(),
+                        request.getWeather()
+                )
         );
         return ResponseEntity.ok(DiaryDto.from(updatedDiary, user));
     }
@@ -90,18 +81,16 @@ public class DiaryController {
     }
 
     @PutMapping("/{diaryUId}/register")
-    ResponseEntity<DiaryDto> registerAlarm(
+    ResponseEntity<Object> registerAlarm(
             @PathVariable("diaryUId") String uid,
-            @RequestBody DiaryRegisterAlarmRequest request,
-            @AuthUser User user
+            @RequestBody DiaryRegisterAlarmRequest request
     ) {
-        Diary updatedDiary = diaryRegisterAlarmUsecase.registerAlarm(
+        diaryRegisterAlarmUsecase.registerAlarm(
                 new DiaryRegisterAlarmUsecase.Request(
-                        request.getUid(),
+                        uid,
                         request.getAlarmUrl()
                 )
         );
-        return ResponseEntity.ok(DiaryDto.from(updatedDiary, user));
+        return ResponseEntity.ok(null);
     }
-
 }
