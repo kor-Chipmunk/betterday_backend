@@ -7,7 +7,7 @@
 
 * Language : Java 17
 * Server Framework : Spring Boot 3.2.5
-* Database : MySQL (for live), h2 (for local)
+* Database : PostgreSQL (for live), h2 (for local)
 * ORM : Spring Data JPA
 * Security : Spring Security / OAuth2
 
