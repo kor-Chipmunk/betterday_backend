@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: FeelRingSecurity
-
-  profiles:
-    include: oauth2
