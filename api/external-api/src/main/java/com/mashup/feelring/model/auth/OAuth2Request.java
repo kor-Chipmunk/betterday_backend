@@ -3,8 +3,8 @@ package com.mashup.feelring.model.auth;
 import lombok.Data;
 
 @Data
-public class AuthRequest {
-    private String email;
-    private String password;
+public class OAuth2Request {
+    private String providerType;
+    private String proverId;
     private String fcmToken;
 }

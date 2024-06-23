@@ -1,16 +1,10 @@
 package com.mashup.feelring.controller;
 
-import com.mashup.feelring.AuthLoginUsecase;
-import com.mashup.feelring.model.auth.AuthDto;
-import com.mashup.feelring.model.auth.AuthRequest;
+import com.mashup.feelring.*;
+import com.mashup.feelring.model.auth.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -36,6 +30,13 @@ public class AuthController {
                     loginResponse.getRefreshToken()
                 )
         );
+    }
+
+    @PostMapping("/login/oauth2")
+    ResponseEntity<AuthDto> loginOauth2(
+            @RequestBody OAuth2Request request
+    ) {
+        return ResponseEntity.ok(null);
     }
 
     @PostMapping("/refresh")
