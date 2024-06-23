@@ -1,9 +1,7 @@
 package com.mashup.feelring.controller;
 
 import com.mashup.feelring.AuthUser;
-import com.mashup.feelring.UserCreateUsecase;
-import com.mashup.feelring.UserDeleteUsecase;
-import com.mashup.feelring.UserUpdateUsecase;
+import com.mashup.feelring.*;
 import com.mashup.feelring.model.user.*;
 
 import com.mashup.feelring.user.model.User;
