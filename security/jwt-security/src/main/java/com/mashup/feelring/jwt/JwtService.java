@@ -19,19 +19,19 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class JwtService {
 
-    @Value("${jwt.application.name:FeelRingSecurity}")
+    @Value("${jwt.issuer}")
     private String issuer;
 
-    @Value("${jwt.access-token.expiration:3600}")
+    @Value("${jwt.access-token.expiration}")
     private Long accessTokenExpirationSeconds;
 
-    @Value("${jwt.refresh-token.expiration:2592000}")
+    @Value("${jwt.refresh-token.expiration}")
     private Long refreshTokenExpirationSeconds;
 
     private final SecretKey secretKey;
 
     public JwtService(
-            @Value("${jwt.access-token.secret-key:secretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkey}")
+            @Value("#{environment['jwt.access-token.secret-key']}")
             String secretKey
     ) {
         secretKey = Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));

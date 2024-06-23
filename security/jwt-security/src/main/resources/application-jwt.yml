@@ -1,0 +1,7 @@
+jwt:
+  issuer: BetterDay-Security
+  access-token:
+    secret-key: secretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkey
+    expiration: 60
+  refresh-token:
+    expiration: 180
