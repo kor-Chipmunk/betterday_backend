@@ -4,6 +4,5 @@ import lombok.Data;
 
 @Data
 public class DiaryRegisterAlarmRequest {
-    private String uid;
     private String alarmUrl;
 }
