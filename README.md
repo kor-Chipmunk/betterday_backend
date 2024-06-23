@@ -13,9 +13,23 @@
 
 ### Modules
 
-* `domain`
-* `web` : 
+* `core` : 코어 모듈 (응답, 예외 코드)
+* `common` : 공통 유틸 모듈 (Jackson 등)
+* `domain` : 도메인 모듈
+* `api`
+  * `external-api` : 외부 클라이언트가 요청할 API 모듈
 * `usecase`
+  * `core` : 외부 모듈(주로 어댑터)가 구현할 포트 모음
+  * `auth-usecase` : 인증 유즈케이스 모듈
+  * `diary-usecase` : 일기 유즈케이스 모듈
+  * `fcm-usecase` : FCM 유즈케이스 모듈
+  * `oauth2-usecase` : OAuth2 유즈케이스 모듈
 * `adapter`
+  * `core` : 외부 모듈이 구현할 인터페이스 모음
+  * `fcm` : FCM 통신 모듈
+  * `oauth2` : OAuth2 통신 모듈
+  * `postgres` : PostgreSQL DB 통신 모듈
 * `security`
-* `core`
+  * `jwt-security` : JWT 토큰 모듈
+  * `aes-security` : AES 암호화 모듈
+  * `spring-security` : 스프링 시큐리티 모듈
