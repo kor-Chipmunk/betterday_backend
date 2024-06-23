@@ -19,7 +19,6 @@ public class DiaryEntity {
     private Long userId;
     private String category;
     private String alarmUrl;
-    private String fcmToken;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;

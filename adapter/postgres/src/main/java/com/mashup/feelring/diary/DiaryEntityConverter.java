@@ -18,7 +18,6 @@ public class DiaryEntityConverter {
                 diary.getUserId().getValue(),
                 diary.getWeather().name(),
                 diary.getAlarmUrl(),
-                null,
                 diary.getCreatedAt(),
                 diary.getUpdatedAt(),
                 diary.getDeletedAt()

@@ -21,6 +21,7 @@ public class UserEntityConverter {
                 user.getProfile().getImage(),
                 user.getProvider().getType(),
                 user.getProvider().getId(),
+                null,
                 user.getLastLoginAt(),
                 user.getLastLogoutAt(),
                 user.getCreatedAt(),
