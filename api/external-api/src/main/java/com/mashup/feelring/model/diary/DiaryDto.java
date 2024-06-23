@@ -14,7 +14,6 @@ public class DiaryDto {
     private final Long userId;
     private final String content;
     private final String weather;
-    private final Integer happiness;
     private final LocalDateTime createdAt;
 
     public static DiaryDto from(Diary diary, User user) {
@@ -24,7 +23,6 @@ public class DiaryDto {
                 user.getId().getValue(),
                 diary.getContent(),
                 diary.getWeather().name(),
-                diary.getHappiness(),
                 diary.getCreatedAt()
         );
     }

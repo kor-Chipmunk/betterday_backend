@@ -12,6 +12,5 @@ public interface DiaryCreateUsecase {
         private final Long userId;
         private final String content;
         private final String weather;
-        private final Integer happiness;
     }
 }

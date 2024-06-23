@@ -19,7 +19,6 @@ public class Diary {
     @NonNull private UserId userId;
 
     @NonNull private Weather weather;
-    @NonNull private Integer happiness;
 
     private String alarmUrl;
 
@@ -31,8 +30,7 @@ public class Diary {
             DiaryId id,
             String content,
             UserId userId,
-            Weather weather,
-            Integer happiness
+            Weather weather
     ) throws DiaryValidationException {
         validateContentSize(content);
 
@@ -41,7 +39,6 @@ public class Diary {
                 content,
                 userId,
                 weather,
-                happiness,
                 null,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
@@ -57,14 +54,12 @@ public class Diary {
 
     public void edit(
             String content,
-            Weather weather,
-            Integer happiness
+            Weather weather
     ) throws DiaryValidationException {
         validateContentSize(content);
 
         this.content = content;
         this.weather = weather;
-        this.happiness = happiness;
 
         this.updatedAt = LocalDateTime.now();
     }

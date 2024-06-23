@@ -11,6 +11,5 @@ public interface DiaryUpdateUsecase {
         private final String uid;
         private final String content;
         private final String weather;
-        private final Integer happiness;
     }
 }

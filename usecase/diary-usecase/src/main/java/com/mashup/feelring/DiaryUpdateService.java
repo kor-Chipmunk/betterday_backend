@@ -22,8 +22,7 @@ public class DiaryUpdateService implements DiaryUpdateUsecase {
         try {
             updatedDiary.edit(
                     request.getContent(),
-                    Weather.from(request.getWeather()),
-                    request.getHappiness()
+                    Weather.from(request.getWeather())
             );
             return updatedDiary;
         } catch (DiaryValidationException exception) {

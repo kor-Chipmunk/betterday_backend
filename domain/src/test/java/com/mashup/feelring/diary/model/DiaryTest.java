@@ -32,8 +32,7 @@ class DiaryTest {
                         diaryId,
                         "내용",
                         new UserId(1L),
-                        Weather.SUNNY,
-                        1
+                        Weather.SUNNY
                 );
 
                 assertAll(
@@ -41,7 +40,6 @@ class DiaryTest {
                         () -> assertEquals("내용", writtenDiary.getContent()),
                         () -> assertEquals(diaryId, writtenDiary.getId()),
                         () -> assertEquals(Weather.SUNNY, writtenDiary.getWeather()),
-                        () -> assertEquals(1, writtenDiary.getHappiness()),
                         () -> assertEquals(new UserId(1L), writtenDiary.getUserId()),
                         () -> assertEquals(mockNow, writtenDiary.getCreatedAt()),
                         () -> assertEquals(mockNow, writtenDiary.getUpdatedAt())
@@ -58,8 +56,7 @@ class DiaryTest {
                         diaryId,
                         "가".repeat(Diary.MAX_CONTENT_LENGTH + 1),
                         new UserId(1L),
-                        Weather.SUNNY,
-                        1
+                        Weather.SUNNY
                 );
             });
         }
@@ -78,8 +75,7 @@ class DiaryTest {
                     diaryId,
                     "내용",
                     new UserId(1L),
-                    Weather.SUNNY,
-                    1
+                    Weather.SUNNY
             );
 
             try (MockedStatic<LocalDateTime> mock = mockStatic(LocalDateTime.class)) {
@@ -87,15 +83,13 @@ class DiaryTest {
 
                 editedDiary.edit(
                         "수정한 내용",
-                        Weather.CLOUDY,
-                        2
+                        Weather.CLOUDY
                 );
 
                 assertAll(
                         "editedDiary",
                         () -> assertEquals("수정한 내용", editedDiary.getContent()),
                         () -> assertEquals(Weather.CLOUDY, editedDiary.getWeather()),
-                        () -> assertEquals(2, editedDiary.getHappiness()),
                         () -> assertEquals(mockNow, editedDiary.getUpdatedAt())
                 );
             }
@@ -111,15 +105,13 @@ class DiaryTest {
                     diaryId,
                     "내용",
                     new UserId(1L),
-                    Weather.SUNNY,
-                    1
+                    Weather.SUNNY
             );
 
             assertThrows(DiaryValidationException.class, () -> {
                 editedDiary.edit(
                         "가".repeat(Diary.MAX_CONTENT_LENGTH + 1),
-                        Weather.SUNNY,
-                        1
+                        Weather.SUNNY
                 );
             });
         }
@@ -138,8 +130,7 @@ class DiaryTest {
                     diaryId,
                     "내용",
                     new UserId(1L),
-                    Weather.SUNNY,
-                    1
+                    Weather.SUNNY
             );
 
             try (MockedStatic<LocalDateTime> mock = mockStatic(LocalDateTime.class)) {
