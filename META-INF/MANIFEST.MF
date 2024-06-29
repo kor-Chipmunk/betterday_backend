@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
 
-Main-Class: com.mashup.feelring.ExternalApiApplication.class
+Main-Class: com.mashup.betterday.ExternalApiApplication.class
