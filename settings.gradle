@@ -1,4 +1,4 @@
-rootProject.name = 'feelring'
+rootProject.name = 'betterday'
 
 include 'adapter'
 include 'adapter:core'

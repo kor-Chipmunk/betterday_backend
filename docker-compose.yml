@@ -1,14 +1,14 @@
 version: '3.9'
 services:
-  feelring-mysql:
+  betterday-mysql:
     image: mysql:8.2.0
-    container_name: feelring-db
+    container_name: betterday-db
     restart: always
     ports:
       - 11000:3306
     environment:
       MYSQL_ROOT_PASSWORD: N3f9g4iLKLRErjo
-      MYSQL_DATABASE: feelring
+      MYSQL_DATABASE: betterday
       TZ: Asia/Seoul
     command:
       - --character-set-server=utf8mb4
@@ -17,9 +17,9 @@ services:
       - ./.docker/mysql/:/var/lib/mysql
       - ./infra/:/docker-entrypoint-initdb.d
     networks:
-      - feelring-network
+      - betterday-network
 
 networks:
-  feelring-network:
+  betterday-network:
     driver: bridge
     external: true
