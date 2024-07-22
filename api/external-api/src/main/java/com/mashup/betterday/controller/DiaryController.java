@@ -2,11 +2,13 @@ package com.mashup.betterday.controller;
 
 import com.mashup.betterday.AuthUser;
 import com.mashup.betterday.*;
+import com.mashup.betterday.alarm.model.Alarm;
 import com.mashup.betterday.diary.model.Diary;
 import com.mashup.betterday.model.diary.*;
 import com.mashup.betterday.user.model.User;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,8 @@ public class DiaryController {
     private final DiaryReadUsecase diaryReadUsecase;
     private final DiaryUpdateUsecase diaryUpdateUsecase;
     private final DiaryDeleteUsecase diaryDeleteUsecase;
-    private final DiaryRegisterAlarmUsecase diaryRegisterAlarmUsecase;
+
+    private final AlarmReadUsecase alarmReadUsecase;
 
     @GetMapping
     ResponseEntity<List<DiaryDto>> read(
@@ -30,9 +33,22 @@ public class DiaryController {
             @AuthUser User user
     ) {
         List<Diary> diaries = diaryReadUsecase.read(user, page, size);
+        List<Alarm> alarms = alarmReadUsecase.read(diaries);
+
         return ResponseEntity.ok(
                 diaries.stream()
-                        .map(diary -> DiaryDto.from(diary, user))
+                        .map(diary -> {
+                            var diaryDto = DiaryDto.from(diary);
+                            for (var alarm : alarms) {
+                                if (Objects.equals(
+                                        diary.getId().getValue(),
+                                        alarm.getDiaryId().getValue()
+                                )) {
+                                    return diaryDto.withAlarm(alarm);
+                                }
+                            }
+                            return diaryDto;
+                        })
                         .toList()
         );
     }
@@ -50,7 +66,7 @@ public class DiaryController {
                         request.getWeather()
                 )
         );
-        return ResponseEntity.ok(DiaryDto.from(createdDiary, user));
+        return ResponseEntity.ok(DiaryDto.from(createdDiary));
     }
 
     @PutMapping("/{diaryUId}")
@@ -66,7 +82,7 @@ public class DiaryController {
                         request.getWeather()
                 )
         );
-        return ResponseEntity.ok(DiaryDto.from(updatedDiary, user));
+        return ResponseEntity.ok(DiaryDto.from(updatedDiary));
     }
 
     @DeleteMapping("/{diaryUId}")
@@ -77,20 +93,6 @@ public class DiaryController {
         Diary deletedDiary = diaryDeleteUsecase.delete(
                 new DiaryDeleteUsecase.Request(uid)
         );
-        return ResponseEntity.ok(DiaryDto.from(deletedDiary, user));
-    }
-
-    @PutMapping("/{diaryUId}/register")
-    ResponseEntity<Object> registerAlarm(
-            @PathVariable("diaryUId") String uid,
-            @RequestBody DiaryRegisterAlarmRequest request
-    ) {
-        diaryRegisterAlarmUsecase.registerAlarm(
-                new DiaryRegisterAlarmUsecase.Request(
-                        uid,
-                        request.getAlarmUrl()
-                )
-        );
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(DiaryDto.from(deletedDiary));
     }
 }

@@ -34,7 +34,9 @@ public class DiarySyncController {
         List<Diary> createdDiaries = diarySyncBatchUsecase.syncBatch(
                 new DiarySyncBatchUsecase.Request(items)
         );
-        List<DiaryDto> response = createdDiaries.stream().map(diary -> DiaryDto.from(diary, user)).toList();
+        List<DiaryDto> response = createdDiaries.stream()
+                .map(DiaryDto::from)
+                .toList();
         return ResponseEntity.ok(response);
     }
 

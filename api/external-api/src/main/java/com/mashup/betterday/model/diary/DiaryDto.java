@@ -1,6 +1,8 @@
 package com.mashup.betterday.model.diary;
 
+import com.mashup.betterday.alarm.model.Alarm;
 import com.mashup.betterday.diary.model.Diary;
+import com.mashup.betterday.model.alarm.AlarmDto;
 import com.mashup.betterday.user.model.User;
 import java.time.LocalDateTime;
 import lombok.Data;
@@ -16,14 +18,21 @@ public class DiaryDto {
     private final String weather;
     private final LocalDateTime createdAt;
 
-    public static DiaryDto from(Diary diary, User user) {
+    private AlarmDto alarm = null;
+
+    public static DiaryDto from(Diary diary) {
         return new DiaryDto(
                 diary.getId().getValue(),
                 diary.getId().getUid().toString(),
-                user.getId().getValue(),
-                diary.getContent(),
+                diary.getUserId().getValue(),
+                diary.getContent().getContent(),
                 diary.getWeather().name(),
                 diary.getCreatedAt()
         );
+    }
+
+    public DiaryDto withAlarm(Alarm alarm) {
+        this.alarm = AlarmDto.from(alarm);
+        return this;
     }
 }

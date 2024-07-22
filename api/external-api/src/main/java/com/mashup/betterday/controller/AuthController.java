@@ -13,6 +13,8 @@ public class AuthController {
 
     private final AuthLoginUsecase authLoginUsecase;
 
+    private final AuthGoogleLoginUsecase authGoogleLoginUsecase;
+
     @PostMapping("/login")
     ResponseEntity<AuthDto> login(
             @RequestBody AuthRequest request
@@ -36,6 +38,10 @@ public class AuthController {
     ResponseEntity<AuthDto> loginOauth2(
             @RequestBody OAuth2Request request
     ) {
+        authGoogleLoginUsecase.login(new AuthGoogleLoginUsecase.Request(
+                request.getProviderType(),
+                request.getToken()
+        ));
         return ResponseEntity.ok(null);
     }
 
