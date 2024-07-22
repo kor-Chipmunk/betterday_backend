@@ -1,5 +1,6 @@
 package com.mashup.betterday.user;
 
+import com.mashup.betterday.common.link.model.ImageLink;
 import com.mashup.betterday.user.model.Account;
 import com.mashup.betterday.user.model.Profile;
 import com.mashup.betterday.user.model.Provider;
@@ -18,10 +19,9 @@ public class UserEntityConverter {
                 user.getAccount().getPassword(),
                 user.getRole().name(),
                 user.getProfile().getNickname(),
-                user.getProfile().getImage(),
+                user.getProfile().getImage().getLink(),
                 user.getProvider().getType(),
                 user.getProvider().getId(),
-                null,
                 user.getLastLoginAt(),
                 user.getLastLogoutAt(),
                 user.getCreatedAt(),
@@ -40,7 +40,7 @@ public class UserEntityConverter {
                 Role.from(userEntity.getRole()),
                 new Profile(
                         userEntity.getNickname(),
-                        userEntity.getImage()
+                        new ImageLink(userEntity.getImage())
                 ),
                 new Provider(
                         userEntity.getProviderName(),

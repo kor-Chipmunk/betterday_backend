@@ -2,11 +2,11 @@ package com.mashup.betterday.diary;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.mashup.betterday.DataJpaConfig;
 import com.mashup.betterday.PrivacyEncryptor;
+import com.mashup.betterday.diary.model.Content;
 import com.mashup.betterday.diary.model.Diary;
 import com.mashup.betterday.diary.model.DiaryId;
 import com.mashup.betterday.diary.model.Weather;
@@ -43,7 +43,7 @@ class DiaryEntityTest {
 
         final Diary privacyDiary = Diary.write(
                 new DiaryId(null, UUID.randomUUID()),
-                privacyContent,
+                new Content(privacyContent),
                 new UserId(1L),
                 Weather.SUNNY
         );

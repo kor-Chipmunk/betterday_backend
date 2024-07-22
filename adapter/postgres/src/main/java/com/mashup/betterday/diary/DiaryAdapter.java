@@ -1,10 +1,13 @@
 package com.mashup.betterday.diary;
 
 import com.mashup.betterday.diary.model.Diary;
+import com.mashup.betterday.diary.model.DiaryId;
 import com.mashup.betterday.exception.BusinessException;
 import com.mashup.betterday.exception.ErrorCode;
+import com.mashup.betterday.user.model.UserId;
 import com.mashup.port.DiaryPort;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,9 +38,12 @@ public class DiaryAdapter implements DiaryPort {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Diary> findAll(final Long userId, final int page, final int size) {
+    public List<Diary> findAllByUid(final UserId userId, final int page, final int size) {
         final PageRequest pageRequest = PageRequest.of(page, size);
-        final Page<DiaryEntity> diaryEntities = diaryJpaRepository.findByUserIdOrderByIdDesc(userId, pageRequest);
+        final Page<DiaryEntity> diaryEntities = diaryJpaRepository.findByUserIdOrderByIdDesc(
+                userId.getValue(),
+                pageRequest
+        );
         return diaryEntities.getContent().stream()
                 .map(DiaryEntityConverter::toModel)
                 .toList();
@@ -45,8 +51,9 @@ public class DiaryAdapter implements DiaryPort {
 
     @Override
     @Transactional(readOnly = true)
-    public Diary findByUid(final String uid) {
-        final DiaryEntity diaryEntity = diaryJpaRepository.findByUid(uid).orElse(null);
+    public Diary findByUid(final DiaryId id) {
+        final DiaryEntity diaryEntity = diaryJpaRepository.findByUid(id.getUid().toString())
+                .orElse(null);
         if (diaryEntity == null) throw BusinessException.from(ErrorCode.DIARY_NOT_FOUND);
         return DiaryEntityConverter.toModel(diaryEntity);
     }
@@ -64,8 +71,13 @@ public class DiaryAdapter implements DiaryPort {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Diary> findAll(final List<String> uids) {
-        final List<DiaryEntity> diaryEntities = diaryJpaRepository.findByUidIn(uids);
+    public List<Diary> findAllByUid(final List<DiaryId> uids) {
+        final List<DiaryEntity> diaryEntities = diaryJpaRepository.findByUidIn(
+                uids.stream()
+                        .map(DiaryId::getUid)
+                        .map(UUID::toString)
+                        .toList()
+        );
         return diaryEntities.stream()
                 .map(DiaryEntityConverter::toModel)
                 .toList();
