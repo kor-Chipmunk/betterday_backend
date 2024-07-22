@@ -26,8 +26,6 @@ public class UserEntity {
     private ProviderType providerName;
     private String providerId;
 
-    private String fcmToken;
-
     private LocalDateTime lastLoginAt;
     private LocalDateTime lastLogoutAt;
 
