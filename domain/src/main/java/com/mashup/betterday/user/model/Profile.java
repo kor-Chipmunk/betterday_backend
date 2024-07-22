@@ -1,15 +1,18 @@
 package com.mashup.betterday.user.model;
 
+import com.mashup.betterday.common.link.model.ImageLink;
 import com.mashup.betterday.user.model.exception.UserValidationException;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
+@Getter
+@EqualsAndHashCode
 public class Profile {
 
     private String nickname;
-    private String image;
+    private ImageLink image;
 
-    public Profile(String nickname, String image) {
+    public Profile(String nickname, ImageLink image) {
         validateNickname(nickname);
 
         this.nickname = nickname;

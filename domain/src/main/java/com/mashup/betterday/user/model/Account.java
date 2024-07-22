@@ -1,9 +1,11 @@
 package com.mashup.betterday.user.model;
 
 import com.mashup.betterday.user.model.exception.UserValidationException;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
+@Getter
+@EqualsAndHashCode
 public class Account {
 
     private String email;

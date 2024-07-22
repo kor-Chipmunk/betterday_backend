@@ -1,5 +1,6 @@
-package com.mashup.betterday.user.model;
+package com.mashup.betterday.alarm.model;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -7,12 +8,12 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
-public class UserId {
+public class AlarmId {
 
     private Long value;
 
-    public static UserId empty() {
-        return new UserId(0L);
+    public static AlarmId empty() {
+        return new AlarmId(0L);
     }
 
 }

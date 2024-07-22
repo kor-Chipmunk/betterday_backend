@@ -1,14 +1,11 @@
-package com.mashup.feelring.user.model;
+package com.mashup.betterday.user.model;
 
-import com.mashup.feelring.user.model.exception.UserValidationException;
-import com.mashup.feelring.user.model.repository.UserRepository;
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 
-@AllArgsConstructor
 @Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class User {
 
     @NonNull private UserId id;
@@ -25,14 +22,14 @@ public class User {
     private LocalDateTime deletedAt;
 
     public static User signUp(
+            UserId userId,
             Account account,
             Role role,
             Profile profile,
-            Provider provider,
-            UserRepository repository
+            Provider provider
     ) {
         return new User(
-                repository.nextId(),
+                userId,
                 account,
                 role,
                 profile,
@@ -43,18 +40,6 @@ public class User {
                 LocalDateTime.now(),
                 null
         );
-    }
-
-    private static void validateUserAccount(User user) {
-        if (user.getAccount().getEmail().isBlank() || user.getAccount().getPassword().isBlank()) {
-            throw new UserValidationException("이메일과 패스워드는 필수 입력값입니다.");
-        }
-    }
-
-    private static void validateUserProfile(User user) {
-        if (user.getProfile().getNickname().isBlank()) {
-            throw new UserValidationException("닉네임은 필수 입력값입니다.");
-        }
     }
 
     public void signIn() {
@@ -77,5 +62,4 @@ public class User {
         this.profile = profile;
         this.updatedAt = LocalDateTime.now();
     }
-
 }
