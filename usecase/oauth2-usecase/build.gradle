@@ -4,4 +4,5 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":usecase:core"))
     implementation(project(":security:jwt-security"))
+    implementation(project(":adapter:oauth2"))
 }

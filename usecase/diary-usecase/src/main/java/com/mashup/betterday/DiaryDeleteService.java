@@ -1,6 +1,7 @@
 package com.mashup.betterday;
 
 import com.mashup.betterday.diary.model.Diary;
+import com.mashup.betterday.diary.model.DiaryId;
 import com.mashup.port.DiaryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class DiaryDeleteService implements DiaryDeleteUsecase {
 
     @Override
     public Diary delete(Request request) {
-        Diary deletedDiary = diaryPort.findByUid(request.getUid());
+        Diary deletedDiary = diaryPort.findByUid(DiaryId.withUid(request.getUid()));
         deletedDiary = diaryPort.delete(deletedDiary);
         return deletedDiary;
     }

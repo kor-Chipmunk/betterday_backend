@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DiaryReadUsecase {
     List<Diary> read(User user, int page, int size);
+    Diary read(String diaryUid);
 }
