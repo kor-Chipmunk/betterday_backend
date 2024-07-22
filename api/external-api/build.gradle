@@ -23,8 +23,10 @@ dependencies {
     implementation(project(":security:spring-security"))
     implementation(project(":domain"))
 
+    implementation(project(":usecase:alarm-usecase"))
     implementation(project(":usecase:auth-usecase"))
     implementation(project(":usecase:diary-usecase"))
     implementation(project(":usecase:fcm-usecase"))
+    implementation(project(":usecase:oauth2-usecase"))
     implementation(project(":usecase:user-usecase"))
 }
