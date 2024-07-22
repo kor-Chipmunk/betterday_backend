@@ -24,7 +24,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class WebSecurityConfig {
     private static final String[] POST_WHITE_LIST = {
             "/api/v1/users/**",
-            "/api/v1/auth/**"
+            "/api/v1/auth/**",
+            "/api/v1/alarms"
     };
     private static final String[] GET_WHITE_LIST = {
             "/", "/h2-console", "/h2-console/**", "/favicon.ico", // default
