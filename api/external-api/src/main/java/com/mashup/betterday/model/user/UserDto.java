@@ -19,7 +19,7 @@ public class UserDto {
                 user.getId().getValue(),
                 user.getAccount().getEmail(),
                 user.getProfile().getNickname(),
-                user.getProfile().getImage(),
+                user.getProfile().getImage().getLink(),
                 user.getCreatedAt(),
                 user.getUpdatedAt(),
                 user.getDeletedAt()
