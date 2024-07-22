@@ -29,6 +29,8 @@ findProject(':security:spring-security')?.name = 'spring-security'
 
 include 'usecase'
 include 'usecase:core'
+include 'usecase:alarm-usecase'
+findProject(':usecase:alarm-usecase')?.name = 'alarm-usecase'
 include 'usecase:auth-usecase'
 findProject(':usecase:auth-usecase')?.name = 'auth-usecase'
 include 'usecase:diary-usecase'
