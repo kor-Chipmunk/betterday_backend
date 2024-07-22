@@ -1,5 +1,8 @@
 package com.mashup.betterday;
 
+import com.mashup.betterday.common.link.model.ImageLink;
+import com.mashup.betterday.exception.BusinessException;
+import com.mashup.betterday.exception.ErrorCode;
 import com.mashup.betterday.user.model.Account;
 import com.mashup.betterday.user.model.Profile;
 import com.mashup.betterday.user.model.Provider;
@@ -23,16 +26,21 @@ public class UserCreateService implements UserCreateUsecase {
     public User create(Request request) {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-        User user = User.signUp(
-                new Account(request.getEmail(), encodedPassword),
-                Role.USER,
-                new Profile(request.getNickname(), request.getImage()),
-                new Provider(
-                        ProviderType.valueOf(request.getProviderType()),
-                        request.getProviderId()
-                ),
-                () -> new UserId(0L)
-        );
-        return userPort.save(user);
+        try {
+            User signUpUser = User.signUp(
+                    UserId.empty(),
+                    new Account(request.getEmail(), encodedPassword),
+                    Role.USER,
+                    new Profile(request.getNickname(), new ImageLink(request.getImage())),
+                    new Provider(
+                            ProviderType.valueOf(request.getProviderType()),
+                            request.getProviderId()
+                    )
+            );
+
+            return userPort.save(signUpUser);
+        } catch (Exception exception) {
+            throw BusinessException.from(ErrorCode.USER_CREATE_FAILED);
+        }
     }
 }

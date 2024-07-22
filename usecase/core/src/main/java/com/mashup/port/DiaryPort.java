@@ -1,13 +1,15 @@
 package com.mashup.port;
 
-import com.mashup.feelring.diary.model.Diary;
+import com.mashup.betterday.diary.model.Diary;
+import com.mashup.betterday.diary.model.DiaryId;
+import com.mashup.betterday.user.model.UserId;
 import java.util.List;
 
 public interface DiaryPort {
     Diary save(Diary diary);
     List<Diary> saveAll(List<Diary> diaries);
-    List<Diary> findAll(Long userId, int page, int size);
-    Diary findByUid(String uid);
+    List<Diary> findAllByUid(UserId userId, int page, int size);
+    Diary findByUid(DiaryId id);
     Diary delete(Diary diary);
-    List<Diary> findAll(List<String> uids);
+    List<Diary> findAllByUid(List<DiaryId> uids);
 }

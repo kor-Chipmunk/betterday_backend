@@ -2,6 +2,7 @@ package com.mashup.betterday;
 
 import com.mashup.betterday.DiarySyncBatchUsecase.Request.CreateItem;
 import com.mashup.betterday.diary.exception.DiaryValidationException;
+import com.mashup.betterday.diary.model.Content;
 import com.mashup.betterday.diary.model.Diary;
 import com.mashup.betterday.diary.model.DiaryId;
 import com.mashup.betterday.diary.model.Weather;
@@ -26,28 +27,31 @@ public class DiarySyncBatchService implements DiarySyncBatchUsecase {
     @Override
     public List<Diary> syncBatch(Request request) {
         try {
-            List<Diary> existDiaries = diaryPort.findAll(
-                    request.getRequests().stream().map(CreateItem::getUid).toList());
-            Set<String> uids = existDiaries.stream().map(diary -> diary.getId().getUid().toString())
-                    .collect(Collectors.toUnmodifiableSet());
+            List<Diary> existDiaries = getExistDiaries(request.getRequests());
 
+            Set<String> distinctUids = existDiaries.stream()
+                    .map(diary -> diary.getId().getUid().toString())
+                    .collect(Collectors.toUnmodifiableSet());
             List<Diary> updatedDiaries = request.getRequests().stream()
-                    .filter(diaryRequest -> uids.contains(diaryRequest.getUid()))
+                    .filter(diaryRequest -> distinctUids.contains(diaryRequest.getUid()))
                     .map(diaryRequest -> {
                         Diary existDiary = existDiaries.stream().filter(diary -> diary.getId().getUid().toString().equals(diaryRequest.getUid())).findFirst()
                                 .orElse(null);
                         if (existDiary == null) return null;
 
-                        existDiary.edit(diaryRequest.getContent(), Weather.from(diaryRequest.getWeather()));
+                        existDiary.edit(
+                                new Content(diaryRequest.getContent()),
+                                Weather.from(diaryRequest.getWeather())
+                        );
                         return existDiary;
                     }).toList();
 
             List<Diary> writtenDiaries = request.getRequests().stream()
-                    .filter(diaryRequest -> !uids.contains(diaryRequest.getUid()))
+                    .filter(diaryRequest -> !distinctUids.contains(diaryRequest.getUid()))
                     .map(diaryRequest ->
                             Diary.write(
-                                    new DiaryId(0L, UUID.fromString(diaryRequest.getUid())),
-                                    diaryRequest.getContent(),
+                                    DiaryId.withUid(diaryRequest.getUid()),
+                                    new Content(diaryRequest.getContent()),
                                     new UserId(diaryRequest.getUserId()),
                                     Weather.from(diaryRequest.getWeather())
                             )
@@ -58,7 +62,15 @@ public class DiarySyncBatchService implements DiarySyncBatchUsecase {
 
             return diaryPort.saveAll(savedDiaries);
         } catch (DiaryValidationException exception) {
-            throw BusinessException.from(ErrorCode.DIARY_FAILED);
+            throw BusinessException.from(ErrorCode.DIARY_CREATE_FAILED);
         }
+    }
+
+    private List<Diary> getExistDiaries(List<DiarySyncBatchUsecase.Request.CreateItem> items) {
+        List<DiaryId> requestUids = items.stream()
+                .map(CreateItem::getUid)
+                .map(DiaryId::withUid)
+                .toList();
+        return diaryPort.findAllByUid(requestUids);
     }
 }

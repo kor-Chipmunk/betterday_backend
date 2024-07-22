@@ -1,6 +1,6 @@
 package com.mashup.betterday;
 
-import com.mashup.port.FcmPort;
+import com.mashup.port.FcmPushPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FcmPushService implements FcmPushUsecase {
 
-    private final FcmPort fcmPort;
+    private final FcmPushPort fcmPushPort;
 
     @Override
     public Response pushMessage(Request request) {

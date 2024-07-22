@@ -1,5 +1,6 @@
 dependencies {
     implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '6.2.4'
 
+    implementation(project(":core"))
     implementation(project(":usecase:core"))
 }

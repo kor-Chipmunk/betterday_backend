@@ -1,6 +1,7 @@
 package com.mashup.betterday;
 
 import com.mashup.betterday.user.model.User;
+import com.mashup.betterday.user.model.UserId;
 import com.mashup.port.UserPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class UserReadService implements UserReadUsecase {
 
     @Override
     public User read(Long id) {
-        return userPort.findById(id);
+        return userPort.findById(new UserId(id));
     }
 
     @Override

@@ -8,8 +8,8 @@ public interface AuthGoogleLoginUsecase {
 
     @Data
     class Request {
-        private final String code;
-        private final String redirectUri;
+        private final String providerType;
+        private final String token;
     }
 
     @Data

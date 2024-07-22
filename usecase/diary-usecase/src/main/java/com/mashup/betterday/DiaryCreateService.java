@@ -1,6 +1,7 @@
 package com.mashup.betterday;
 
 import com.mashup.betterday.diary.exception.DiaryValidationException;
+import com.mashup.betterday.diary.model.Content;
 import com.mashup.betterday.diary.model.Diary;
 import com.mashup.betterday.diary.model.DiaryId;
 import com.mashup.betterday.diary.model.Weather;
@@ -22,15 +23,15 @@ public class DiaryCreateService implements DiaryCreateUsecase {
     public Diary create(Request request) {
         try {
             Diary writtenDiary = Diary.write(
-                    new DiaryId(0L, UUID.fromString(request.getUid())),
-                    request.getContent(),
+                    DiaryId.withUid(request.getUid()),
+                    new Content(request.getContent()),
                     new UserId(request.getUserId()),
                     Weather.from(request.getWeather())
             );
 
             return diaryPort.save(writtenDiary);
         } catch (DiaryValidationException exception) {
-            throw BusinessException.from(ErrorCode.DIARY_FAILED);
+            throw BusinessException.from(ErrorCode.DIARY_CREATE_FAILED);
         }
     }
 }

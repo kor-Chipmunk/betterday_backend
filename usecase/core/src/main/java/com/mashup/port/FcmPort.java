@@ -1,5 +1,9 @@
 package com.mashup.port;
 
+import com.mashup.betterday.fcm.model.FCM;
+import com.mashup.betterday.fcm.model.FCMId;
+
 public interface FcmPort {
-    int pushMessage(String title, String token, String to);
+    FCM save(FCM user);
+    FCM findById(FCMId id);
 }
