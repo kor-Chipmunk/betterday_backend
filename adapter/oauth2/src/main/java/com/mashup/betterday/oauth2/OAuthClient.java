@@ -4,15 +4,9 @@ import com.mashup.betterday.model.OAuthToken;
 import com.mashup.betterday.model.OAuthUser;
 
 public interface OAuthClient {
-    default OAuthToken requestAccessToken(String code) {
-        return null;
-    }
+    OAuthToken requestAccessToken(String code);
 
-    default OAuthToken renewAccessToken(OAuthToken oAuthToken) {
-        return null;
-    }
+    OAuthToken renewAccessToken(OAuthToken oAuthToken);
 
-    default OAuthUser requestUserInfo(OAuthToken oAuthToken) {
-        return null;
-    }
+    OAuthUser requestUserInfo(OAuthToken oAuthToken);
 }
