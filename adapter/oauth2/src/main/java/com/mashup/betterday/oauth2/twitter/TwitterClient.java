@@ -7,16 +7,16 @@ import com.mashup.betterday.oauth2.OAuthClient;
 public class TwitterClient implements OAuthClient {
     @Override
     public OAuthToken requestAccessToken(String code) {
-        return OAuthClient.super.requestAccessToken(code);
+        return null;
     }
 
     @Override
     public OAuthToken renewAccessToken(OAuthToken oAuthToken) {
-        return OAuthClient.super.renewAccessToken(oAuthToken);
+        return null;
     }
 
     @Override
     public OAuthUser requestUserInfo(OAuthToken oAuthToken) {
-        return OAuthClient.super.requestUserInfo(oAuthToken);
+        return null;
     }
 }

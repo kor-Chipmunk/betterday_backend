@@ -3,13 +3,13 @@ package com.mashup.betterday.fcm;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
-import com.mashup.port.FcmPort;
+import com.mashup.port.FcmPushPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class FCMAdapter implements FcmPort {
+public class FCMPushAdapter implements FcmPushPort {
 
     private final FirebaseMessaging fcm;
 
