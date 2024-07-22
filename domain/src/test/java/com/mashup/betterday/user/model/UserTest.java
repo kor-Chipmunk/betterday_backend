@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mockStatic;
 
+import com.mashup.betterday.common.link.model.ImageLink;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -24,6 +25,7 @@ class UserTest {
                 mock.when(LocalDateTime::now).thenReturn(mockNow);
 
                 User signUpUser = User.signUp(
+                        new UserId(1L),
                         new Account(
                                 "test@naver.com",
                                 "123456"
@@ -31,13 +33,12 @@ class UserTest {
                         Role.USER,
                         new Profile(
                                 "닉네임",
-                                "https://cdn.feelring.com/abc.png"
+                                new ImageLink("https://cdn.betterday.com/abc.png")
                         ),
                         new Provider(
                                 ProviderType.GOOGLE,
                                 "googleId1"
-                        ),
-                        () -> new UserId(1L)
+                        )
                 );
 
                 assertAll("signUpUser",
@@ -46,7 +47,7 @@ class UserTest {
                         () -> assertEquals("123456", signUpUser.getAccount().getPassword()),
                         () -> assertEquals(Role.USER, signUpUser.getRole()),
                         () -> assertEquals("닉네임", signUpUser.getProfile().getNickname()),
-                        () -> assertEquals("https://cdn.feelring.com/abc.png", signUpUser.getProfile().getImage()),
+                        () -> assertEquals(new ImageLink("https://cdn.betterday.com/abc.png"), signUpUser.getProfile().getImage()),
                         () -> assertEquals(mockNow, signUpUser.getCreatedAt()),
                         () -> assertEquals(mockNow, signUpUser.getUpdatedAt())
                 );
@@ -66,6 +67,7 @@ class UserTest {
                 mock.when(LocalDateTime::now).thenReturn(mockNow);
 
                 User signInUser = User.signUp(
+                        new UserId(1L),
                         new Account(
                                 "test@naver.com",
                                 "123456"
@@ -73,13 +75,12 @@ class UserTest {
                         Role.USER,
                         new Profile(
                                 "닉네임",
-                                "https://cdn.feelring.com/abc.png"
+                                new ImageLink("https://cdn.betterday.com/abc.png")
                         ),
                         new Provider(
                                 ProviderType.GOOGLE,
                                 "googleId1"
-                        ),
-                        () -> new UserId(1L)
+                        )
                 );
 
                 signInUser.signIn();
@@ -104,6 +105,7 @@ class UserTest {
                 mock.when(LocalDateTime::now).thenReturn(mockNow);
 
                 User signOutUser = User.signUp(
+                        new UserId(1L),
                         new Account(
                                 "test@naver.com",
                                 "123456"
@@ -111,13 +113,12 @@ class UserTest {
                         Role.USER,
                         new Profile(
                                 "닉네임",
-                                "https://cdn.feelring.com/abc.png"
+                                new ImageLink("https://cdn.betterday.com/abc.png")
                         ),
                         new Provider(
                                 ProviderType.GOOGLE,
                                 "googleId1"
-                        ),
-                        () -> new UserId(1L)
+                        )
                 );
 
                 signOutUser.signOut();
@@ -142,6 +143,7 @@ class UserTest {
                 mock.when(LocalDateTime::now).thenReturn(mockNow);
 
                 User resignUser = User.signUp(
+                        new UserId(1L),
                         new Account(
                                 "test@naver.com",
                                 "123456"
@@ -149,13 +151,12 @@ class UserTest {
                         Role.USER,
                         new Profile(
                                 "닉네임",
-                                "https://cdn.feelring.com/abc.png"
+                                new ImageLink("https://cdn.betterday.com/abc.png")
                         ),
                         new Provider(
                                 ProviderType.GOOGLE,
                                 "googleId1"
-                        ),
-                        () -> new UserId(1L)
+                        )
                 );
 
                 resignUser.resign();
@@ -181,6 +182,7 @@ class UserTest {
                 mock.when(LocalDateTime::now).thenReturn(mockNow);
 
                 User edittedUser = User.signUp(
+                        new UserId(1L),
                         new Account(
                                 "test@naver.com",
                                 "123456"
@@ -188,25 +190,24 @@ class UserTest {
                         Role.USER,
                         new Profile(
                                 "닉네임",
-                                "https://cdn.feelring.com/abc.png"
+                                new ImageLink("https://cdn.betterday.com/abc.png")
                         ),
                         new Provider(
                                 ProviderType.GOOGLE,
                                 "googleId1"
-                        ),
-                        () -> new UserId(1L)
+                        )
                 );
 
                 edittedUser.editProfile(
                         new Profile(
                                 "변경한닉네임",
-                                "https://cdn.feelring.com/def.png"
+                                new ImageLink("https://cdn.betterday.com/def.png")
                         )
                 );
 
                 assertAll("signInUser",
                         () -> assertEquals("변경한닉네임", edittedUser.getProfile().getNickname()),
-                        () -> assertEquals("https://cdn.feelring.com/def.png", edittedUser.getProfile().getImage()),
+                        () -> assertEquals("https://cdn.betterday.com/def.png", edittedUser.getProfile().getImage()),
                         () -> assertEquals(mockNow, edittedUser.getUpdatedAt())
                 );
             }

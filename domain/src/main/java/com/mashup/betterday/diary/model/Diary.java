@@ -1,26 +1,25 @@
 package com.mashup.betterday.diary.model;
 
+import com.mashup.betterday.alarm.model.Alarm;
+import com.mashup.betterday.common.link.model.MusicLink;
 import com.mashup.betterday.diary.exception.DiaryValidationException;
 import com.mashup.betterday.user.model.UserId;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NonNull;
 
-@AllArgsConstructor
 @Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class Diary {
 
-    public static final int MAX_CONTENT_LENGTH = 128;
+    private DiaryId id;
+    private Content content;
 
-    @NonNull private DiaryId id;
-    @NonNull private String content;
+    private UserId userId;
 
-    @NonNull private UserId userId;
-
-    @NonNull private Weather weather;
-
-    private String alarmUrl;
+    private Weather weather;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -28,36 +27,25 @@ public class Diary {
 
     public static Diary write(
             DiaryId id,
-            String content,
+            Content content,
             UserId userId,
             Weather weather
     ) throws DiaryValidationException {
-        validateContentSize(content);
-
         return new Diary(
                 id,
                 content,
                 userId,
                 weather,
-                null,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 null
         );
     }
 
-    private static void validateContentSize(String content) throws DiaryValidationException {
-        if (content.length() > MAX_CONTENT_LENGTH) {
-            throw new DiaryValidationException("일기 내용이 최대 길이를 초과했습니다.");
-        }
-    }
-
     public void edit(
-            String content,
+            Content content,
             Weather weather
     ) throws DiaryValidationException {
-        validateContentSize(content);
-
         this.content = content;
         this.weather = weather;
 
@@ -66,11 +54,6 @@ public class Diary {
 
     public void delete() {
         this.deletedAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    public void registerAlarm(String alarmUrl) {
-        this.alarmUrl = alarmUrl;
         this.updatedAt = LocalDateTime.now();
     }
 

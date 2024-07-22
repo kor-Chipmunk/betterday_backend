@@ -1,10 +1,12 @@
 package com.mashup.betterday.user.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
+@Getter
+@EqualsAndHashCode
 @AllArgsConstructor
-@Data
 public class Provider {
 
     private ProviderType type;

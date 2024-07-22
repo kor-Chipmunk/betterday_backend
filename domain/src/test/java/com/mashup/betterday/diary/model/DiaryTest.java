@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mockStatic;
 
+import com.mashup.betterday.diary.exception.ContentValidationException;
 import com.mashup.betterday.diary.exception.DiaryValidationException;
 import com.mashup.betterday.user.model.UserId;
 import java.time.LocalDateTime;
@@ -27,17 +28,17 @@ class DiaryTest {
             try (MockedStatic<LocalDateTime> mock = mockStatic(LocalDateTime.class)) {
                 mock.when(LocalDateTime::now).thenReturn(mockNow);
 
-                DiaryId diaryId = new DiaryId(0L, UUID.randomUUID());
+                DiaryId diaryId = DiaryId.empty();
                 Diary writtenDiary = Diary.write(
                         diaryId,
-                        "내용",
+                        new Content("내용"),
                         new UserId(1L),
                         Weather.SUNNY
                 );
 
                 assertAll(
                         "writtenDiary",
-                        () -> assertEquals("내용", writtenDiary.getContent()),
+                        () -> assertEquals(new Content("내용"), writtenDiary.getContent()),
                         () -> assertEquals(diaryId, writtenDiary.getId()),
                         () -> assertEquals(Weather.SUNNY, writtenDiary.getWeather()),
                         () -> assertEquals(new UserId(1L), writtenDiary.getUserId()),
@@ -50,11 +51,11 @@ class DiaryTest {
         @DisplayName("내용은 최대 길이를 넘으면 예외(DiaryValidationException)를 일으킵니다")
         @Test
         void shouldRaiseExceptionWhenLengthIsOverMax() {
-            DiaryId diaryId = new DiaryId(0L, UUID.randomUUID());
-            assertThrows(DiaryValidationException.class, () -> {
+            DiaryId diaryId = DiaryId.empty();
+            assertThrows(ContentValidationException.class, () -> {
                 Diary.write(
                         diaryId,
-                        "가".repeat(Diary.MAX_CONTENT_LENGTH + 1),
+                        new Content("가".repeat(Content.MAX_CONTENT_LENGTH + 1)),
                         new UserId(1L),
                         Weather.SUNNY
                 );
@@ -70,10 +71,10 @@ class DiaryTest {
         void shouldEdit() {
             LocalDateTime mockNow = LocalDateTime.of(2024,5,27,0,0,0);
 
-            DiaryId diaryId = new DiaryId(0L, UUID.randomUUID());
+            DiaryId diaryId = DiaryId.empty();
             Diary editedDiary = Diary.write(
                     diaryId,
-                    "내용",
+                    new Content("내용"),
                     new UserId(1L),
                     Weather.SUNNY
             );
@@ -82,13 +83,13 @@ class DiaryTest {
                 mock.when(LocalDateTime::now).thenReturn(mockNow);
 
                 editedDiary.edit(
-                        "수정한 내용",
+                        new Content("내용"),
                         Weather.CLOUDY
                 );
 
                 assertAll(
                         "editedDiary",
-                        () -> assertEquals("수정한 내용", editedDiary.getContent()),
+                        () -> assertEquals(new Content("내용"), editedDiary.getContent()),
                         () -> assertEquals(Weather.CLOUDY, editedDiary.getWeather()),
                         () -> assertEquals(mockNow, editedDiary.getUpdatedAt())
                 );
@@ -100,17 +101,17 @@ class DiaryTest {
         void shouldRaiseExceptionWhenLengthIsOverMax() {
             LocalDateTime mockNow = LocalDateTime.of(2024,5,27,0,0,0);
 
-            DiaryId diaryId = new DiaryId(0L, UUID.randomUUID());
+            DiaryId diaryId = DiaryId.empty();
             Diary editedDiary = Diary.write(
                     diaryId,
-                    "내용",
+                    new Content("내용"),
                     new UserId(1L),
                     Weather.SUNNY
             );
 
-            assertThrows(DiaryValidationException.class, () -> {
+            assertThrows(ContentValidationException.class, () -> {
                 editedDiary.edit(
-                        "가".repeat(Diary.MAX_CONTENT_LENGTH + 1),
+                        new Content("가".repeat(Content.MAX_CONTENT_LENGTH + 1)),
                         Weather.SUNNY
                 );
             });
@@ -125,10 +126,10 @@ class DiaryTest {
         void shouldDelete() {
             LocalDateTime mockNow = LocalDateTime.of(2024,5,27,0,0,0);
 
-            DiaryId diaryId = new DiaryId(0L, UUID.randomUUID());
+            DiaryId diaryId = DiaryId.empty();
             Diary deletedDiary = Diary.write(
                     diaryId,
-                    "내용",
+                    new Content("내용"),
                     new UserId(1L),
                     Weather.SUNNY
             );
