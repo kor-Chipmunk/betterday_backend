@@ -207,7 +207,7 @@ class UserTest {
 
                 assertAll("signInUser",
                         () -> assertEquals("변경한닉네임", edittedUser.getProfile().getNickname()),
-                        () -> assertEquals("https://cdn.betterday.com/def.png", edittedUser.getProfile().getImage()),
+                        () -> assertEquals("https://cdn.betterday.com/def.png", edittedUser.getProfile().getImage().getLink()),
                         () -> assertEquals(mockNow, edittedUser.getUpdatedAt())
                 );
             }
