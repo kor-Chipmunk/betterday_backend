@@ -53,6 +53,20 @@ public class DiaryController {
         );
     }
 
+    @GetMapping("/{diaryUId}")
+    ResponseEntity<DiaryDto> readOne(
+            @RequestParam(name = "diaryUId") String uid,
+            @AuthUser User user
+    ) {
+        Diary diary = diaryReadUsecase.read(user, uid);
+        Alarm alarm = alarmReadUsecase.read(diary);
+
+        return ResponseEntity.ok(
+                DiaryDto.from(diary)
+                        .withAlarm(alarm)
+        );
+    }
+
     @PostMapping
     ResponseEntity<DiaryDto> create(
             @RequestBody DiaryCreateRequest request,
