@@ -55,7 +55,7 @@ public class DiaryController {
 
     @GetMapping("/{diaryUId}")
     ResponseEntity<DiaryDto> readOne(
-            @RequestParam(name = "diaryUId") String uid,
+            @PathVariable(name = "diaryUId") String uid,
             @AuthUser User user
     ) {
         Diary diary = diaryReadUsecase.read(user, uid);
