@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DiaryJpaRepository extends JpaRepository<DiaryEntity, Long> {
+    Optional<DiaryEntity> findByUserIdAndUid(Long userId, String uid);
     Optional<DiaryEntity> findByUid(String uid);
     Page<DiaryEntity> findByUserIdOrderByIdDesc(Long userId, Pageable pageable);
     List<DiaryEntity> findByUidIn(List<String> uid);

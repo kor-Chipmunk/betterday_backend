@@ -38,7 +38,7 @@ public class DiaryAdapter implements DiaryPort {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Diary> findAllByUid(final UserId userId, final int page, final int size) {
+    public List<Diary> findAllByUserId(final UserId userId, final int page, final int size) {
         final PageRequest pageRequest = PageRequest.of(page, size);
         final Page<DiaryEntity> diaryEntities = diaryJpaRepository.findByUserIdOrderByIdDesc(
                 userId.getValue(),
@@ -47,6 +47,16 @@ public class DiaryAdapter implements DiaryPort {
         return diaryEntities.getContent().stream()
                 .map(DiaryEntityConverter::toModel)
                 .toList();
+    }
+
+    @Override
+    public Diary findByUserIdAndUid(UserId userId, DiaryId diaryId) {
+        final DiaryEntity diaryEntity = diaryJpaRepository.findByUserIdAndUid(
+                userId.getValue(),
+                diaryId.getUid().toString()
+        ).orElse(null);
+        if (diaryEntity == null) throw BusinessException.from(ErrorCode.DIARY_NOT_FOUND);
+        return DiaryEntityConverter.toModel(diaryEntity);
     }
 
     @Override

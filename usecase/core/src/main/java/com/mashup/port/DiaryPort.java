@@ -8,7 +8,8 @@ import java.util.List;
 public interface DiaryPort {
     Diary save(Diary diary);
     List<Diary> saveAll(List<Diary> diaries);
-    List<Diary> findAllByUid(UserId userId, int page, int size);
+    List<Diary> findAllByUserId(UserId userId, int page, int size);
+    Diary findByUserIdAndUid(UserId userId, DiaryId diaryId);
     Diary findByUid(DiaryId id);
     Diary delete(Diary diary);
     List<Diary> findAllByUid(List<DiaryId> uids);

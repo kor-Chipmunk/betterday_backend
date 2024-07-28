@@ -16,7 +16,12 @@ public class DiaryReadService implements DiaryReadUsecase {
 
     @Override
     public List<Diary> read(User user, int page, int size) {
-        return diaryPort.findAllByUid(user.getId(), page, size);
+        return diaryPort.findAllByUserId(user.getId(), page, size);
+    }
+
+    @Override
+    public Diary read(User user, String diaryUid) {
+        return diaryPort.findByUserIdAndUid(user.getId(), DiaryId.withUid(diaryUid));
     }
 
     @Override
