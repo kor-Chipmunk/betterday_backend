@@ -1,8 +1,0 @@
-dependencies {
-    implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '6.2.4'
-
-    implementation(project(":core"))
-    implementation(project(":usecase:core"))
-    implementation(project(":security:jwt-security"))
-    implementation(project(":adapter:oauth2"))
-}
