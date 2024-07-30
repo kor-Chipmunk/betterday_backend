@@ -19,9 +19,6 @@ public class UserEntity {
 
     private String role;
 
-    private String nickname;
-    private String image;
-
     @Enumerated(EnumType.STRING)
     private ProviderType providerName;
     private String providerId;

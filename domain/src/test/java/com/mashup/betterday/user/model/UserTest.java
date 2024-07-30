@@ -31,10 +31,6 @@ class UserTest {
                                 "123456"
                         ),
                         Role.USER,
-                        new Profile(
-                                "닉네임",
-                                new ImageLink("https://cdn.betterday.com/abc.png")
-                        ),
                         new Provider(
                                 ProviderType.GOOGLE,
                                 "googleId1"
@@ -46,8 +42,6 @@ class UserTest {
                         () -> assertEquals("test@naver.com", signUpUser.getAccount().getEmail()),
                         () -> assertEquals("123456", signUpUser.getAccount().getPassword()),
                         () -> assertEquals(Role.USER, signUpUser.getRole()),
-                        () -> assertEquals("닉네임", signUpUser.getProfile().getNickname()),
-                        () -> assertEquals(new ImageLink("https://cdn.betterday.com/abc.png"), signUpUser.getProfile().getImage()),
                         () -> assertEquals(mockNow, signUpUser.getCreatedAt()),
                         () -> assertEquals(mockNow, signUpUser.getUpdatedAt())
                 );
@@ -73,10 +67,6 @@ class UserTest {
                                 "123456"
                         ),
                         Role.USER,
-                        new Profile(
-                                "닉네임",
-                                new ImageLink("https://cdn.betterday.com/abc.png")
-                        ),
                         new Provider(
                                 ProviderType.GOOGLE,
                                 "googleId1"
@@ -111,10 +101,6 @@ class UserTest {
                                 "123456"
                         ),
                         Role.USER,
-                        new Profile(
-                                "닉네임",
-                                new ImageLink("https://cdn.betterday.com/abc.png")
-                        ),
                         new Provider(
                                 ProviderType.GOOGLE,
                                 "googleId1"
@@ -149,10 +135,6 @@ class UserTest {
                                 "123456"
                         ),
                         Role.USER,
-                        new Profile(
-                                "닉네임",
-                                new ImageLink("https://cdn.betterday.com/abc.png")
-                        ),
                         new Provider(
                                 ProviderType.GOOGLE,
                                 "googleId1"
@@ -170,47 +152,5 @@ class UserTest {
         }
     }
 
-    @DisplayName("프로필")
-    @Nested
-    class ProfileUsecase {
-        @DisplayName("프로필을 수정합니다.")
-        @Test
-        void shouldEditProfile() {
-            LocalDateTime mockNow = LocalDateTime.of(2024,5,27,0,0,0);
 
-            try (MockedStatic<LocalDateTime> mock = mockStatic(LocalDateTime.class)) {
-                mock.when(LocalDateTime::now).thenReturn(mockNow);
-
-                User edittedUser = User.signUp(
-                        new UserId(1L),
-                        new Account(
-                                "test@naver.com",
-                                "123456"
-                        ),
-                        Role.USER,
-                        new Profile(
-                                "닉네임",
-                                new ImageLink("https://cdn.betterday.com/abc.png")
-                        ),
-                        new Provider(
-                                ProviderType.GOOGLE,
-                                "googleId1"
-                        )
-                );
-
-                edittedUser.editProfile(
-                        new Profile(
-                                "변경한닉네임",
-                                new ImageLink("https://cdn.betterday.com/def.png")
-                        )
-                );
-
-                assertAll("signInUser",
-                        () -> assertEquals("변경한닉네임", edittedUser.getProfile().getNickname()),
-                        () -> assertEquals("https://cdn.betterday.com/def.png", edittedUser.getProfile().getImage().getLink()),
-                        () -> assertEquals(mockNow, edittedUser.getUpdatedAt())
-                );
-            }
-        }
-    }
 }

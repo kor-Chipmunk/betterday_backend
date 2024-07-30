@@ -18,8 +18,6 @@ public class UserEntityConverter {
                 user.getAccount().getEmail(),
                 user.getAccount().getPassword(),
                 user.getRole().name(),
-                user.getProfile().getNickname(),
-                user.getProfile().getImage().getLink(),
                 user.getProvider().getType(),
                 user.getProvider().getId(),
                 user.getLastLoginAt(),
@@ -38,12 +36,8 @@ public class UserEntityConverter {
                     userEntity.getPassword()
                 ),
                 Role.from(userEntity.getRole()),
-                new Profile(
-                        userEntity.getNickname(),
-                        new ImageLink(userEntity.getImage())
-                ),
                 new Provider(
-                        userEntity.getProviderName(),
+                        userEntity.getProviderType(),
                         userEntity.getProviderId()
                 ),
                 userEntity.getLastLoginAt(),

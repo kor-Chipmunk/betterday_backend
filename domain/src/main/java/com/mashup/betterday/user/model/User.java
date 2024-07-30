@@ -11,7 +11,6 @@ public class User {
     @NonNull private UserId id;
     @NonNull private Account account;
     @NonNull private Role role;
-    @NonNull private Profile profile;
     @NonNull private Provider provider;
 
     private LocalDateTime lastLoginAt;
@@ -25,14 +24,12 @@ public class User {
             UserId userId,
             Account account,
             Role role,
-            Profile profile,
             Provider provider
     ) {
         return new User(
                 userId,
                 account,
                 role,
-                profile,
                 provider,
                 null,
                 null,
@@ -56,10 +53,5 @@ public class User {
         role = Role.DELETED;
         deletedAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
-    }
-
-    public void editProfile(Profile profile) {
-        this.profile = profile;
-        this.updatedAt = LocalDateTime.now();
     }
 }

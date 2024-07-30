@@ -33,8 +33,6 @@ public class UserController {
         User createdUser = userCreateUsecase.create(new UserCreateUsecase.Request(
                 request.getEmail(),
                 request.getPassword(),
-                request.getNickname(),
-                request.getImage(),
                 request.getProviderType(),
                 request.getProviderId()
         ));
