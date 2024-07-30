@@ -20,7 +20,7 @@ public class UserEntity {
     private String role;
 
     @Enumerated(EnumType.STRING)
-    private ProviderType providerName;
+    private ProviderType providerType;
     private String providerId;
 
     private LocalDateTime lastLoginAt;
