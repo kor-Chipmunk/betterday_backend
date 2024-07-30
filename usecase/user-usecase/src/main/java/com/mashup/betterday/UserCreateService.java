@@ -1,10 +1,8 @@
 package com.mashup.betterday;
 
-import com.mashup.betterday.common.link.model.ImageLink;
 import com.mashup.betterday.exception.BusinessException;
 import com.mashup.betterday.exception.ErrorCode;
 import com.mashup.betterday.user.model.Account;
-import com.mashup.betterday.user.model.Profile;
 import com.mashup.betterday.user.model.Provider;
 import com.mashup.betterday.user.model.ProviderType;
 import com.mashup.betterday.user.model.Role;

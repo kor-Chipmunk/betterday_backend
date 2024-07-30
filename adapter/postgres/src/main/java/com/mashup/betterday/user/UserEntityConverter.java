@@ -1,8 +1,6 @@
 package com.mashup.betterday.user;
 
-import com.mashup.betterday.common.link.model.ImageLink;
 import com.mashup.betterday.user.model.Account;
-import com.mashup.betterday.user.model.Profile;
 import com.mashup.betterday.user.model.Provider;
 import com.mashup.betterday.user.model.Role;
 import com.mashup.betterday.user.model.User;
