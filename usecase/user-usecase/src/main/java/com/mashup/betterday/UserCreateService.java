@@ -31,9 +31,8 @@ public class UserCreateService implements UserCreateUsecase {
                     UserId.empty(),
                     new Account(request.getEmail(), encodedPassword),
                     Role.USER,
-                    new Profile(request.getNickname(), new ImageLink(request.getImage())),
                     new Provider(
-                            ProviderType.valueOf(request.getProviderType()),
+                            ProviderType.from(request.getProviderType()),
                             request.getProviderId()
                     )
             );
