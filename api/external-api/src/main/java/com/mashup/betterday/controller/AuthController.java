@@ -1,7 +1,11 @@
 package com.mashup.betterday.controller;
 
 import com.mashup.betterday.*;
+import com.mashup.betterday.exception.BusinessException;
+import com.mashup.betterday.exception.ErrorCode;
 import com.mashup.betterday.model.auth.*;
+import com.mashup.betterday.user.model.User;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +16,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthLoginUsecase authLoginUsecase;
+    private final OAuth2LoginUsecase oAuth2LoginUsecase;
 
-    private final AuthGoogleLoginUsecase authGoogleLoginUsecase;
+    private final UserCreateUsecase userCreateUsecase;
 
     @PostMapping("/login")
     ResponseEntity<AuthDto> login(
@@ -27,9 +32,9 @@ public class AuthController {
         );
         return ResponseEntity.ok(
                 AuthDto.from(
-                    loginResponse.getUser(),
-                    loginResponse.getAccessToken(),
-                    loginResponse.getRefreshToken()
+                        loginResponse.getUser(),
+                        loginResponse.getAccessToken(),
+                        loginResponse.getRefreshToken()
                 )
         );
     }
@@ -38,11 +43,50 @@ public class AuthController {
     ResponseEntity<AuthDto> loginOauth2(
             @RequestBody OAuth2Request request
     ) {
-        authGoogleLoginUsecase.login(new AuthGoogleLoginUsecase.Request(
-                request.getProviderType(),
-                request.getToken()
-        ));
-        return ResponseEntity.ok(null);
+        try {
+            OAuth2LoginUsecase.LoginResponse response = oAuth2LoginUsecase.login(
+                    new OAuth2LoginUsecase.Request(
+                            request.getProviderType(),
+                            request.getProviderId()
+                    )
+            );
+
+            return ResponseEntity.ok(
+                    AuthDto.from(
+                            response.getUser(),
+                            response.getAccessToken(),
+                            response.getRefreshToken()
+                    )
+            );
+        } catch (BusinessException ex) {
+            if (ex.getErrorCode().equals(ErrorCode.USER_NOT_FOUND)) {
+                userCreateUsecase.create(
+                        new UserCreateUsecase.Request(
+                                request.getEmail(),
+                                UUID.randomUUID().toString(),
+                                request.getProviderType(),
+                                request.getProviderId()
+                        )
+                );
+
+                OAuth2LoginUsecase.LoginResponse response = oAuth2LoginUsecase.login(
+                        new OAuth2LoginUsecase.Request(
+                                request.getProviderType(),
+                                request.getProviderId()
+                        )
+                );
+
+                return ResponseEntity.ok(
+                        AuthDto.from(
+                                response.getUser(),
+                                response.getAccessToken(),
+                                response.getRefreshToken()
+                        )
+                );
+            } else {
+                throw ex;
+            }
+        }
     }
 
     @PostMapping("/refresh")

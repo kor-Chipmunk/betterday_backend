@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class OAuth2Request {
+    private String email;
+    private String nickname;
     private String providerType;
-    private String token;
+    private String providerId;
 }
