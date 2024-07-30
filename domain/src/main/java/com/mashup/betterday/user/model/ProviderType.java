@@ -11,7 +11,7 @@ public enum ProviderType {
     GOOGLE,
     APPLE,
     KAKAO,
-    TWITTER,
+    X,
     TIKTOK,
     ;
 
@@ -21,6 +21,6 @@ public enum ProviderType {
             );
 
     public static ProviderType from(String type) {
-        return maps.getOrDefault(type, UNKNOWN);
+        return maps.getOrDefault(type.toUpperCase(), UNKNOWN);
     }
 }
