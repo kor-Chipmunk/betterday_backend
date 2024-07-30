@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity(name = "alarm")
+@Entity(name = "alarms")
 public class AlarmEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
