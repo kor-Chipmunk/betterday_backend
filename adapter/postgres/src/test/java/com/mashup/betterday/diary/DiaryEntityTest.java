@@ -55,7 +55,7 @@ class DiaryEntityTest {
         entityManager.clear();
 
         final EntityManager em = entityManager.getEntityManager();
-        Query query = em.createNativeQuery("SELECT content From Diary WHERE id = :id");
+        Query query = em.createNativeQuery("SELECT content From Diaries WHERE id = :id");
         query.setParameter("id", privacyDiaryEntity.getId());
         String actual = (String) query.getSingleResult();
 
