@@ -1,6 +1,7 @@
 package com.mashup.betterday;
 
 import com.mashup.betterday.diary.model.Diary;
+import com.mashup.betterday.user.model.User;
 import lombok.Data;
 
 public interface DiaryUpdateUsecase {
@@ -11,5 +12,6 @@ public interface DiaryUpdateUsecase {
         private final String uid;
         private final String content;
         private final String weather;
+        private final User user;
     }
 }

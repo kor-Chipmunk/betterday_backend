@@ -75,9 +75,9 @@ public class DiaryController {
         Diary createdDiary = diaryCreateUsecase.create(
                 new DiaryCreateUsecase.Request(
                         request.getUid(),
-                        user.getId().getValue(),
                         request.getContent(),
-                        request.getWeather()
+                        request.getWeather(),
+                        user
                 )
         );
         return ResponseEntity.ok(DiaryDto.from(createdDiary));
@@ -93,7 +93,8 @@ public class DiaryController {
                 new DiaryUpdateUsecase.Request(
                         request.getUid(),
                         request.getContent(),
-                        request.getWeather()
+                        request.getWeather(),
+                        user
                 )
         );
         return ResponseEntity.ok(DiaryDto.from(updatedDiary));
