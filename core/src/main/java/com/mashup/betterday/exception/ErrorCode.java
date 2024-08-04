@@ -20,8 +20,8 @@ public enum ErrorCode {
     ALARM_NOT_FOUND(400, "알람을 조회할 수 없습니다."),
     ALARM_DUPLICATED(400, "알람이 이미 등록됐습니다."),
 
-    FCM_CREATE_FAILED(400, "FCM 등록에 실패했습니다."),
-    FCM_NOT_FOUND(400, "FCM을 조회할 수 없습니다."),
+    WEEKLY_REPORT_CREATE_FAILED(400, "주간 리포트 등록에 실패했습니다."),
+    WEEKLY_REPORT_NOT_FOUND(400, "주간 리포트를 조회할 수 없습니다."),
     ;
 
     private final int code;
