@@ -25,7 +25,7 @@ public class DiaryCreateService implements DiaryCreateUsecase {
             Diary writtenDiary = Diary.write(
                     DiaryId.withUid(request.getUid()),
                     new Content(request.getContent()),
-                    new UserId(request.getUserId()),
+                    request.getUser().getId(),
                     Weather.from(request.getWeather())
             );
 
