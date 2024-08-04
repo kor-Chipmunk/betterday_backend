@@ -8,6 +8,8 @@ import lombok.Data;
 public class UserDto {
     private final Long id;
     private final String email;
+    private final String providerType;
+    private final String providerId;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
     private final LocalDateTime deletedAt;
@@ -16,6 +18,8 @@ public class UserDto {
         return new UserDto(
                 user.getId().getValue(),
                 user.getAccount().getEmail(),
+                user.getProvider().getType().name(),
+                user.getProvider().getId(),
                 user.getCreatedAt(),
                 user.getUpdatedAt(),
                 user.getDeletedAt()
