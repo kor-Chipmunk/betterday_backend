@@ -1,6 +1,7 @@
 package com.mashup.betterday.diary;
 
 import com.mashup.betterday.diary.converter.ContentConverter;
+import com.mashup.betterday.diary.model.Weather;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.*;
@@ -13,12 +14,26 @@ public class DiaryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String uid;
+
+    @Column(nullable = false)
     @Convert(converter = ContentConverter.class)
     private String content;
+
+    @Column(nullable = false)
     private Long userId;
-    private String category;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Weather category;
+
+    @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
+
     private LocalDateTime deletedAt;
 }

@@ -1,5 +1,6 @@
 package com.mashup.betterday.alarm;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,10 +18,18 @@ public class AlarmEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String link;
+
+    @Column(nullable = false)
     private Long diaryId;
 
+    @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
+
     private LocalDateTime deletedAt;
 }
