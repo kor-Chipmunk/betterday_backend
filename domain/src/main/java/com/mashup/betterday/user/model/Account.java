@@ -1,6 +1,6 @@
 package com.mashup.betterday.user.model;
 
-import com.mashup.betterday.user.model.exception.UserValidationException;
+import com.mashup.betterday.user.exception.UserValidationException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

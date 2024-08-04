@@ -1,4 +1,4 @@
-package com.mashup.betterday.user.model.exception;
+package com.mashup.betterday.user.exception;
 
 public class UserValidationException extends RuntimeException {
     public UserValidationException() {
