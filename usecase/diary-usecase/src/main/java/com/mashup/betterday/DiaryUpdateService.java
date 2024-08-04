@@ -21,6 +21,10 @@ public class DiaryUpdateService implements DiaryUpdateUsecase {
     public Diary update(Request request) {
         Diary updatedDiary = diaryPort.findByUid(DiaryId.withUid(request.getUid()));
 
+        if (!updatedDiary.getUserId().equals(request.getUser().getId())) {
+            throw BusinessException.from(ErrorCode.DIARY_NOT_FOUND);
+        }
+
         try {
             updatedDiary.edit(
                     new Content(request.getContent()),
