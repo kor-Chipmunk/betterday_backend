@@ -1,6 +1,7 @@
 package com.mashup.betterday.user;
 
 import com.mashup.betterday.user.model.ProviderType;
+import com.mashup.betterday.user.model.Role;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.*;
@@ -14,10 +15,15 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String password;
 
-    private String role;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Enumerated(EnumType.STRING)
     private ProviderType providerType;
@@ -26,7 +32,11 @@ public class UserEntity {
     private LocalDateTime lastLoginAt;
     private LocalDateTime lastLogoutAt;
 
+    @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
+
     private LocalDateTime deletedAt;
 }

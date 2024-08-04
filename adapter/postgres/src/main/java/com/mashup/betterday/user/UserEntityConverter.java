@@ -15,7 +15,7 @@ public class UserEntityConverter {
                 user.getId().getValue(),
                 user.getAccount().getEmail(),
                 user.getAccount().getPassword(),
-                user.getRole().name(),
+                user.getRole(),
                 user.getProvider().getType(),
                 user.getProvider().getId(),
                 user.getLastLoginAt(),
@@ -33,7 +33,7 @@ public class UserEntityConverter {
                     userEntity.getEmail(),
                     userEntity.getPassword()
                 ),
-                Role.from(userEntity.getRole()),
+                userEntity.getRole(),
                 new Provider(
                         userEntity.getProviderType(),
                         userEntity.getProviderId()
