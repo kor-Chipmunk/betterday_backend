@@ -91,7 +91,7 @@ public class DiaryController {
     ) {
         Diary updatedDiary = diaryUpdateUsecase.update(
                 new DiaryUpdateUsecase.Request(
-                        request.getUid(),
+                        uid,
                         request.getContent(),
                         request.getWeather(),
                         user
