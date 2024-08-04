@@ -106,7 +106,7 @@ public class DiaryController {
             @AuthUser User user
     ) {
         Diary deletedDiary = diaryDeleteUsecase.delete(
-                new DiaryDeleteUsecase.Request(uid)
+                new DiaryDeleteUsecase.Request(uid, user)
         );
         return ResponseEntity.ok(DiaryDto.from(deletedDiary));
     }
