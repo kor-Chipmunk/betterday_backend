@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: local
+
+task:
+  executor:
+    diary:
+      core-pool-size: 10
+      max-pool-size: 40
+      queue-capacity: 500
+      thread-name-prefix: diaryTaskExecutor-

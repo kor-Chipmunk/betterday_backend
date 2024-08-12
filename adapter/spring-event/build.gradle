@@ -1,0 +1,6 @@
+dependencies {
+    implementation "org.springframework:spring-tx:${springFrameworkVersion}"
+
+    implementation(project(":adapter:core"))
+    implementation(project(":adapter:aws-sns"))
+}

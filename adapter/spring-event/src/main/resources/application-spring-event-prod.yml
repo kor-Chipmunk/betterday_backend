@@ -1,0 +1,12 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+task:
+  executor:
+    diary:
+      core-pool-size: 2
+      max-pool-size: 8
+      queue-capacity: 40
+      thread-name-prefix: diaryTaskExecutor-

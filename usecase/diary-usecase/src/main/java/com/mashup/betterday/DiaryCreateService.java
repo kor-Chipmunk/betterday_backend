@@ -30,6 +30,11 @@ public class DiaryCreateService implements DiaryCreateUsecase {
                     Weather.from(request.getWeather()),
                     request.getWrittenAt()
             );
+            diaryEventPort.publishCreatedEvent(
+                    new DiaryCreatedApplicationEvent(
+                            request.getUid(),
+                            request.getContent()
+                    )
             );
             return diaryPort.save(writtenDiary);
         } catch (DiaryValidationException exception) {
