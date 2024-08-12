@@ -92,4 +92,22 @@ public class DiaryAdapter implements DiaryPort {
                 .map(DiaryEntityConverter::toModel)
                 .toList();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Diary> findAllByCalendar(
+            final UserId userId,
+            final LocalDateTime from,
+            final LocalDateTime until
+    ) {
+        final List<DiaryEntity> diaryEntities =
+                diaryJpaRepository.findByUserIdAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
+                        userId.getValue(),
+                        from,
+                        until
+                );
+        return diaryEntities.stream()
+                .map(DiaryEntityConverter::toModel)
+                .toList();
+    }
 }
