@@ -1,0 +1,8 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+jasypt:
+  encryptor:
+    password: ENC(4OUgQhOjAzplKBvm0iUwQEBAyOZfofcr3HXmUeHk+DAQMveBGvU2dyInBn6t9Auv)

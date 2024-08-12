@@ -1,0 +1,8 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+jasypt:
+  encryptor:
+    password: CIMB6hW3Y7pn1zRkN6BOuId9DTR5Q62jpxjk

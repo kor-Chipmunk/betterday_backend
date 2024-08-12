@@ -1,0 +1,7 @@
+ext {
+    jasyptVersion = "3.0.5"
+}
+
+dependencies {
+    implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:${jasyptVersion}"
+}
