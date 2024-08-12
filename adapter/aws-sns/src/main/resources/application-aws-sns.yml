@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    aws:
+      credentials:
+        access-key: ENC(O6UmeP2KUK/LkP3lM0W9ysKF69J5GOwXn00k8ErELnc=)
+        secret-key: ENC(SRUsUmUUq3QAvoqQexrjm151gi+6b5REXlSUIO9pV4CNCgfsPI5puuroAWvuvqsUAiQY8ljeQIA=)
+      sns:
+        region: ENC(JNhB05IqCxNL9iYJZGMq0JTkN74bZcB+)
+
+io:
+  reflectoring:
+    aws:
+      sns:
+        topic-arn: ENC(RU08bqQzMIOKpuKlcFD/0e6+0RRoOqtgsB2K6v7jQx45PrQRarkAI+zU7YS5ULVqSCEppLPPNtDROuJdpDToXQ==)

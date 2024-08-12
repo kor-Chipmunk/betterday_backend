@@ -1,0 +1,13 @@
+ext {
+    springCloudAwsVersion = '3.1.1'
+}
+
+dependencies {
+    // Spring Cloud AWS BOM Dependencies
+    implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:${springCloudAwsVersion}")
+
+    // Spring Cloud AWS SNS
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-sns'
+
+    implementation(project(":adapter:core"))
+}
