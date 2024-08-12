@@ -6,7 +6,7 @@
 ### Tech stacks
 
 * Language : Java 17
-* Server Framework : Spring Boot 3.2.5
+* Server Framework : Spring Boot 3.3.2
 * Database : PostgreSQL (for live), h2 (for local)
 * ORM : Spring Data JPA
 * Security : Spring Security / OAuth2
@@ -30,6 +30,8 @@
     * `core` : 외부 모듈이 구현할 인터페이스 모음
     * `oauth2` : OAuth2 통신 모듈
     * `postgres` : PostgreSQL DB 통신 모듈
+    * `sns` : AWS SNS 이벤트 발행 모듈
+    * `spring-event` : Spring Application 이벤트 발행 모듈
 * `security`
     * `jwt-security` : JWT 토큰 모듈
     * `aes-security` : AES 암호화 모듈
