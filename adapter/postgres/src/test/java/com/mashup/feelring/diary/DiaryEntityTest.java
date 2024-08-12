@@ -45,8 +45,7 @@ class DiaryEntityTest {
                 new DiaryId(null, UUID.randomUUID()),
                 privacyContent,
                 new UserId(1L),
-                Weather.SUNNY,
-                0
+                Weather.SUNNY
         );
 
         final DiaryEntity privacyDiaryEntity = DiaryEntityConverter.toEntity(privacyDiary);

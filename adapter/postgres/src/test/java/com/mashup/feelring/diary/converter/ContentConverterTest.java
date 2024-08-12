@@ -38,8 +38,8 @@ class ContentConverterTest {
 
         when(privacyEncryptor.decrypt(encrypted)).thenReturn(expected);
 
-        final String privacyData = this.contentConverter.convertToEntityAttribute(encrypted);
+        final String actual = this.contentConverter.convertToEntityAttribute(encrypted);
 
-        assertEquals(expected, privacyData);
+        assertEquals(expected, actual);
     }
 }

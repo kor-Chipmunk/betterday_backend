@@ -10,6 +10,6 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test:6.2.4'
 
     implementation(project(":security:jwt-security"))
-    implementation(project(":adapter:mysql"))
+    implementation(project(":adapter:postgres"))
     implementation(project(":usecase:user-usecase"))
 }

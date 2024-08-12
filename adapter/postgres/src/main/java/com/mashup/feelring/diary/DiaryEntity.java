@@ -18,8 +18,8 @@ public class DiaryEntity {
     private String content;
     private Long userId;
     private String category;
-    private Integer happiness;
     private String alarmUrl;
+    private String fcmToken;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;

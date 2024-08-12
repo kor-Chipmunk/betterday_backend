@@ -9,6 +9,7 @@ dependencies {
     // Database Connectors
     implementation 'mysql:mysql-connector-java:8.0.33'
     runtimeOnly 'com.h2database:h2:2.2.224'
+    implementation 'org.postgresql:postgresql:42.7.3'
 
     implementation(project(":core"))
     implementation(project(":adapter:core"))
