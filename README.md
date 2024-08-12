@@ -26,6 +26,7 @@
     * `fcm-usecase` : FCM 유즈케이스 모듈
     * `oauth2-usecase` : OAuth2 유즈케이스 모듈
     * `user-usecase` : 유저 유즈케이스 모듈
+    * `weekly-report-usecase` : 주간 리포트 유즈케이스 모듈
 * `adapter`
     * `core` : 외부 모듈이 구현할 인터페이스 모음
     * `fcm` : FCM 통신 모듈
