@@ -2,14 +2,18 @@ plugins {
     id 'java-library'
 }
 
+ext {
+    h2ConnectorVersion = '2.2.224'
+    postgresqlConnectorVersion = '42.7.3'
+}
+
 dependencies {
     // Spring Data JPA
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.2.5'
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springVersion}"
 
     // Database Connectors
-    implementation 'mysql:mysql-connector-java:8.0.33'
-    runtimeOnly 'com.h2database:h2:2.2.224'
-    implementation 'org.postgresql:postgresql:42.7.3'
+    runtimeOnly "com.h2database:h2:${h2ConnectorVersion}"
+    implementation "org.postgresql:postgresql:${postgresqlConnectorVersion}"
 
     implementation(project(":core"))
     implementation(project(":adapter:core"))

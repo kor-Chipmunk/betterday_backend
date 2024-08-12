@@ -10,18 +10,24 @@ jar {
     enabled = false
 }
 
+ext {
+    openapiStarterVersion = '2.2.0'
+}
+
 dependencies {
     // Web MVC with UnderTow
-    implementation('org.springframework.boot:spring-boot-starter-web:3.2.5') {
+    implementation("org.springframework.boot:spring-boot-starter-web:${springVersion}") {
         exclude module: 'spring-boot-starter-tomcat'
     }
-    implementation('org.springframework.boot:spring-boot-starter-undertow:3.2.5')
+    implementation("org.springframework.boot:spring-boot-starter-undertow:${springVersion}")
 
     // OpenAPI
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openapiStarterVersion}"
 
-    implementation(project(":security:spring-security"))
     implementation(project(":domain"))
+
+    implementation(project(":security:jasypt-security"))
+    implementation(project(":security:spring-security"))
 
     implementation(project(":usecase:alarm-usecase"))
     implementation(project(":usecase:auth-usecase"))

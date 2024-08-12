@@ -30,16 +30,27 @@ subprojects {
 		mavenCentral()
 	}
 
-	dependencies {
-		compileOnly 'org.projectlombok:lombok:1.18.30'
-		annotationProcessor 'org.projectlombok:lombok:1.18.30'
+	ext {
+		springVersion = '3.3.2'
+		springFrameworkVersion = '6.1.11'
 
-		testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
-		testImplementation 'org.mockito:mockito-core:4.8.0'
-		testImplementation 'org.mockito:mockito-inline:4.8.0'
+		lombokVersion = '1.18.34'
+		jUnitVersion = '5.10.3'
+		mockitoCoreVersion = '5.12.0'
+		mockitoInlineVersion = '5.2.0'
+	}
+
+	dependencies {
+		compileOnly "org.projectlombok:lombok:${lombokVersion}"
+		annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+		testImplementation "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+		testImplementation "org.mockito:mockito-core:${mockitoCoreVersion}"
+		testImplementation "org.mockito:mockito-inline:${mockitoInlineVersion}"
 	}
 
 	tasks.named('test') {
 		useJUnitPlatform()
+		systemProperty "jasypt.encryptor.password", System.getProperty("jasypt.encryptor.password")
 	}
 }
