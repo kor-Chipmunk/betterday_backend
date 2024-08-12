@@ -6,6 +6,7 @@ import com.mashup.betterday.exception.BusinessException;
 import com.mashup.betterday.exception.ErrorCode;
 import com.mashup.betterday.user.model.UserId;
 import com.mashup.port.DiaryPort;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -55,7 +56,9 @@ public class DiaryAdapter implements DiaryPort {
                 userId.getValue(),
                 diaryId.getUid().toString()
         ).orElse(null);
-        if (diaryEntity == null) throw BusinessException.from(ErrorCode.DIARY_NOT_FOUND);
+        if (diaryEntity == null) {
+            throw BusinessException.from(ErrorCode.DIARY_NOT_FOUND);
+        }
         return DiaryEntityConverter.toModel(diaryEntity);
     }
 
@@ -64,7 +67,9 @@ public class DiaryAdapter implements DiaryPort {
     public Diary findByUid(final DiaryId id) {
         final DiaryEntity diaryEntity = diaryJpaRepository.findByUid(id.getUid().toString())
                 .orElse(null);
-        if (diaryEntity == null) throw BusinessException.from(ErrorCode.DIARY_NOT_FOUND);
+        if (diaryEntity == null) {
+            throw BusinessException.from(ErrorCode.DIARY_NOT_FOUND);
+        }
         return DiaryEntityConverter.toModel(diaryEntity);
     }
 
@@ -74,7 +79,9 @@ public class DiaryAdapter implements DiaryPort {
         final DiaryEntity diaryEntity = diaryJpaRepository.findByUid(
                 diary.getId().getUid().toString()
         ).orElse(null);
-        if (diaryEntity == null) throw BusinessException.from(ErrorCode.DIARY_NOT_FOUND);
+        if (diaryEntity == null) {
+            throw BusinessException.from(ErrorCode.DIARY_NOT_FOUND);
+        }
         diaryJpaRepository.delete(diaryEntity);
         return DiaryEntityConverter.toModel(diaryEntity);
     }

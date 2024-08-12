@@ -1,16 +1,15 @@
 package com.mashup.betterday.diary;
 
-import com.mashup.betterday.common.link.model.MusicLink;
 import com.mashup.betterday.diary.model.Content;
 import com.mashup.betterday.diary.model.Diary;
 import com.mashup.betterday.diary.model.DiaryId;
-import com.mashup.betterday.diary.model.Weather;
 import com.mashup.betterday.user.model.UserId;
 import java.util.UUID;
 
 public class DiaryEntityConverter {
 
-    private DiaryEntityConverter() {}
+    private DiaryEntityConverter() {
+    }
 
     public static DiaryEntity toEntity(Diary diary) {
         return new DiaryEntity(
@@ -19,6 +18,7 @@ public class DiaryEntityConverter {
                 diary.getContent().getContent(),
                 diary.getUserId().getValue(),
                 diary.getWeather(),
+                diary.getWrittenAt(),
                 diary.getCreatedAt(),
                 diary.getUpdatedAt(),
                 diary.getDeletedAt()
@@ -31,6 +31,7 @@ public class DiaryEntityConverter {
                 new Content(diaryEntity.getContent()),
                 new UserId(diaryEntity.getUserId()),
                 diaryEntity.getCategory(),
+                diaryEntity.getWrittenAt(),
                 diaryEntity.getCreatedAt(),
                 diaryEntity.getUpdatedAt(),
                 diaryEntity.getDeletedAt()

@@ -3,8 +3,8 @@ package com.mashup.betterday.model.diary;
 import com.mashup.betterday.alarm.model.Alarm;
 import com.mashup.betterday.diary.model.Diary;
 import com.mashup.betterday.model.alarm.AlarmDto;
-import com.mashup.betterday.user.model.User;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +16,7 @@ public class DiaryDto {
     private final Long userId;
     private final String content;
     private final String weather;
+    private final ZonedDateTime writtenAt;
     private final LocalDateTime createdAt;
 
     private AlarmDto alarm = null;
@@ -27,6 +28,7 @@ public class DiaryDto {
                 diary.getUserId().getValue(),
                 diary.getContent().getContent(),
                 diary.getWeather().name(),
+                diary.getWrittenAt(),
                 diary.getCreatedAt()
         );
     }

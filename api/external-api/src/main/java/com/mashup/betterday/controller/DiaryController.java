@@ -77,6 +77,7 @@ public class DiaryController {
                         request.getUid(),
                         request.getContent(),
                         request.getWeather(),
+                        request.getWrittenAt(),
                         user
                 )
         );
