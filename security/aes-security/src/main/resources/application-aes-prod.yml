@@ -1,0 +1,7 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+aes:
+  secret-key: ENC(1q6sbYD0Z6N2/+u/03MrgWy0Rnyf909ddMd9mlDMehFIacxq+8/36ZU0Nvec8SYL)

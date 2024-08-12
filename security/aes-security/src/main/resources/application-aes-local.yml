@@ -1,0 +1,7 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+aes:
+  secret-key: Bgp0KtcEz+DvjxnXvDCYz0MsrYLNYXMi

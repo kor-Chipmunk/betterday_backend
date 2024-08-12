@@ -28,14 +28,20 @@ public class JwtService {
     @Value("${jwt.refresh-token.expiration}")
     private Long refreshTokenExpirationSeconds;
 
-    private final SecretKey secretKey;
+    private final SecretKey accessTokenSecret;
+    private final SecretKey refreshTokenSecret;
 
     public JwtService(
             @Value("#{environment['jwt.access-token.secret-key']}")
-            String secretKey
+            String accessTokenSecretKey,
+            @Value("#{environment['jwt.refresh-token.secret-key']}")
+            String refreshTokenSecretKey
     ) {
-        secretKey = Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
-        this.secretKey = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+        accessTokenSecretKey = Encoders.BASE64.encode(accessTokenSecretKey.getBytes(StandardCharsets.UTF_8));
+        this.accessTokenSecret = Keys.hmacShaKeyFor(accessTokenSecretKey.getBytes(StandardCharsets.UTF_8));
+
+        refreshTokenSecretKey = Encoders.BASE64.encode(refreshTokenSecretKey.getBytes(StandardCharsets.UTF_8));
+        this.refreshTokenSecret = Keys.hmacShaKeyFor(refreshTokenSecretKey.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateAccessToken(Long id, String email, Date baseDate) {
@@ -51,7 +57,7 @@ public class JwtService {
                 .subject(email)
                 .claim("id", id)
                 .compressWith(ZIP.GZIP)
-                .signWith(secretKey)
+                .signWith(accessTokenSecret)
                 .compact();
     }
 
@@ -66,7 +72,7 @@ public class JwtService {
                 .issuer(issuer)
                 .expiration(expiration)
                 .compressWith(ZIP.GZIP)
-                .signWith(secretKey)
+                .signWith(refreshTokenSecret)
                 .compact();
     }
 
@@ -87,8 +93,15 @@ public class JwtService {
 
     private Jws<Claims> parseClaims(String token) {
         return Jwts.parser()
-                .verifyWith(secretKey)
+                .verifyWith(accessTokenSecret)
                 .build()
                 .parseSignedClaims(token);
+    }
+
+    public boolean verifyRefreshToken(String token) {
+        return Jwts.parser()
+                .verifyWith(refreshTokenSecret)
+                .build()
+                .isSigned(token);
     }
 }

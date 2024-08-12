@@ -1,6 +1,8 @@
 jwt:
   access-token:
-    secret-key: secretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkey
-    expiration: 2592000
+    secret-key: ENC(2Ix7NLEbEserSdXExjkF2ef5XK28jwGCC1uD3pUH+Y5wuOspc6dQZ+7dGBcEoMw6)
+    expiration: 86400 # 1d
+    # expiration: 1800 # 30min
   refresh-token:
-    expiration: 2592000
+    secret-key: ENC(SsdQlhuWwgT7XAGRQdzWpGTi4HV2yT4QPEkv1ivm899ZgJB09ZxI00vVrRmMZ9NH)
+    expiration: 2592000 # 30d

@@ -4,17 +4,17 @@ spring:
       on-profile: dev
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://localhost:11000/betterday?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&serverTimezone=Asia/Seoul"
+    driver-class-name: org.postgresql.Driver
+    url: "jdbc:postgresql://localhost:11000/betterday?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&serverTimezone=Asia/Seoul"
     username: root
     password: N3f9g4iLKLRErjo
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: create
     properties:
-      dialect: org.hibernate.dialect.MySQLDialect
+      dialect: org.hibernate.dialect.PostgreSQLDialect
       hibernate:
         format_sql: true
         show_sql: true

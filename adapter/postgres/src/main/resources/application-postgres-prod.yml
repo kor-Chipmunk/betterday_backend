@@ -1,0 +1,22 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    driver-class-name: ENC(bnyhhDtz5Kp9p5a5v9IZ/73Elhx26KiWpSkW5Wr2CRA=)
+    url: ENC(VDMi6y4w+US5QR8hCA2rnaGNzcxGC4YQOEnW40WeJ38TrZKQOOkX3Rc87jYBB6T0Bcr7AvkSOvDRkHDLLavyO/av8KqOs0CwkYOdZV1HMBgHlLaUz7ygmsFILDdfjjU8jelfThpFfETT63H5UtpxtpO20WD5l30vddMBFouvdptwMlnRZKNDIQrmfSvw7xeLRMVfg5kidHJCIHLbExpVdk687IgyI462VMVKS8AGrh0wp2V7QGnmdkOVo3NhPcfQ)
+    username: ENC(FfuYaLot7JB7SGlzAYK9ZLl529k5iCfA)
+    password: ENC(ulISnBlAtF2AH9Zbzd7vX11t9ZDnvSSu)
+
+  jpa:
+    database-platform: ENC(/6seyN7ianzdEKNrpJbn+0EGSc48QwsblR7J/NlJLuzzRRvJPHhvzoZct1u8QG4x)
+    hibernate:
+      ddl-auto: validate
+      default_schema: ENC(7BlfAQSgwUNzSSuHrIpjTQ==)
+    properties:
+      dialect: ENC(muZxOZ3AYFx0AXdUI4MYvBp1hV/iR/yjSU1+WytAv8RjHO0vf25U8DuzPeGSco4Q)
+      hibernate:
+        format_sql: true
+        show_sql: true
+        use_sql_comments: true

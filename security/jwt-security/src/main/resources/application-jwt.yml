@@ -2,6 +2,9 @@ jwt:
   issuer: BetterDay-Security
   access-token:
     secret-key: secretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkey
-    expiration: 60
+    expiration: 2592000 # 30d
   refresh-token:
-    expiration: 180
+    secret-key: anotherkeyanotherkeyanotherkeyanotherkeyanotherkeyanotherkey
+    expiration: 2592000 # 30d
+
+# TODO: Properties 로 바꾸기
