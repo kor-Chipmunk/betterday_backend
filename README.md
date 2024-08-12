@@ -20,10 +20,12 @@
     * `external-api` : 외부 클라이언트가 요청할 API 모듈
 * `usecase`
     * `core` : 외부 모듈(주로 어댑터)가 구현할 포트 모음
+    * `alarm-usecase` : 알람 유즈케이스 모듈
     * `auth-usecase` : 인증 유즈케이스 모듈
     * `diary-usecase` : 일기 유즈케이스 모듈
     * `fcm-usecase` : FCM 유즈케이스 모듈
     * `oauth2-usecase` : OAuth2 유즈케이스 모듈
+    * `user-usecase` : 유저 유즈케이스 모듈
 * `adapter`
     * `core` : 외부 모듈이 구현할 인터페이스 모음
     * `fcm` : FCM 통신 모듈
