@@ -2,13 +2,13 @@ package com.mashup.betterday.user;
 
 import com.mashup.betterday.user.model.Account;
 import com.mashup.betterday.user.model.Provider;
-import com.mashup.betterday.user.model.Role;
 import com.mashup.betterday.user.model.User;
 import com.mashup.betterday.user.model.UserId;
 
 public class UserEntityConverter {
 
-    private UserEntityConverter() {}
+    private UserEntityConverter() {
+    }
 
     public static UserEntity toEntity(User user) {
         return new UserEntity(
@@ -30,8 +30,8 @@ public class UserEntityConverter {
         return new User(
                 new UserId(userEntity.getId()),
                 new Account(
-                    userEntity.getEmail(),
-                    userEntity.getPassword()
+                        userEntity.getEmail(),
+                        userEntity.getPassword()
                 ),
                 userEntity.getRole(),
                 new Provider(

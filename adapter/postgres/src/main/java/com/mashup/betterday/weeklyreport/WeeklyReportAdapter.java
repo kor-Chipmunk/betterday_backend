@@ -20,14 +20,16 @@ public class WeeklyReportAdapter implements WeeklyReportPort {
     @Override
     @Transactional
     public WeeklyReport save(WeeklyReport weeklyReport) {
-        WeeklyReportEntity weeklyReportEntity = weeklyReportJpaRepository.save(WeeklyReportEntityConverter.toEntity(weeklyReport));
+        WeeklyReportEntity weeklyReportEntity = weeklyReportJpaRepository.save(
+                WeeklyReportEntityConverter.toEntity(weeklyReport));
         return WeeklyReportEntityConverter.toModel(weeklyReportEntity);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<WeeklyReport> findByUserId(UserId userId) {
-        List<WeeklyReport> weeklyReportEntities = weeklyReportJpaRepository.findByUserIdOrderByYearsDescWeekDesc(userId.getValue()).stream()
+        List<WeeklyReport> weeklyReportEntities = weeklyReportJpaRepository.findByUserIdOrderByYearsDescWeekDesc(
+                        userId.getValue()).stream()
                 .map(WeeklyReportEntityConverter::toModel)
                 .toList();
         return weeklyReportEntities;
