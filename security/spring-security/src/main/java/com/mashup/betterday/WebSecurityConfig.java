@@ -55,8 +55,8 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests(auth ->
                 auth.requestMatchers(HttpMethod.POST, POST_WHITE_LIST).permitAll()
-                    .requestMatchers(GET_WHITE_LIST).permitAll()
-                    .anyRequest().authenticated()
+                        .requestMatchers(GET_WHITE_LIST).permitAll()
+                        .anyRequest().authenticated()
         );
 
         http.addFilterBefore(
@@ -70,8 +70,13 @@ public class WebSecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://43.203.91.150:10000/", "http://localhost:10000", "http://api.betterday.one", "https://api.betterday.one"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedOrigins(
+                Arrays.asList(
+                        "http://localhost:10000",
+                        "https://api.betterday.one"
+                )
+        );
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
