@@ -30,7 +30,7 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             return body;
         }
 
-        if (body instanceof TreeMap<?,?> || body.getClass().getTypeName().equals("byte[]")) {
+        if (body != null && (body instanceof TreeMap<?, ?> || body.getClass().getTypeName().equals("byte[]"))) {
             return body;
         }
 
