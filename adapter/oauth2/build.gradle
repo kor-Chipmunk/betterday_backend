@@ -1,0 +1,5 @@
+dependencies {
+    implementation "org.springframework:spring-web:${springFrameworkVersion}"
+
+    implementation(project(":common"))
+}

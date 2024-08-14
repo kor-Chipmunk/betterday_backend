@@ -1,12 +1,14 @@
 rootProject.name = 'betterday'
 
 include 'adapter'
+include 'adapter:aws-sns'
+findProject(':adapter:aws-sns')?.name = 'aws-sns'
 include 'adapter:core'
 findProject(':adapter:core')?.name = 'core'
 include 'adapter:postgres'
 findProject(':adapter:postgres')?.name = 'postgres'
-include 'adapter:aws-sns'
-findProject(':adapter:aws-sns')?.name = 'aws-sns'
+include 'adapter:oauth2'
+findProject('adapter:oauth2')?.name = 'oauth2'
 include 'adapter:spring-event'
 findProject(':adapter:spring-event')?.name = 'spring-event'
 
