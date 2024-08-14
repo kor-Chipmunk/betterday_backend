@@ -30,7 +30,7 @@ public class WebSecurityConfig {
     private static final String[] GET_WHITE_LIST = {
             "/", "/h2-console", "/h2-console/**", "/favicon.ico", // default
             "/v3/**", "/swagger-ui/**", "/swagger-resources/**", // swagger
-            "/login/oauth2/**" // oauth2
+            "/api/v1/auth/oauth2/**" // oauth2
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
