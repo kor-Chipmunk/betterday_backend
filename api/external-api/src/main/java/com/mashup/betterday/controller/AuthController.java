@@ -1,14 +1,20 @@
 package com.mashup.betterday.controller;
 
-import com.mashup.betterday.*;
+import com.mashup.betterday.AuthLoginUsecase;
+import com.mashup.betterday.OAuth2LoginUsecase;
+import com.mashup.betterday.UserCreateUsecase;
 import com.mashup.betterday.exception.BusinessException;
 import com.mashup.betterday.exception.ErrorCode;
-import com.mashup.betterday.model.auth.*;
-import com.mashup.betterday.user.model.User;
+import com.mashup.betterday.model.auth.AuthDto;
+import com.mashup.betterday.model.auth.AuthRequest;
+import com.mashup.betterday.model.auth.OAuth2Request;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController

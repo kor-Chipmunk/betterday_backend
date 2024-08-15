@@ -1,4 +1,4 @@
-package com.mashup.betterday.client;
+package com.mashup.betterday.client.google;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

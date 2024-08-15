@@ -1,0 +1,15 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            redirect-uri: https://api.betterday.one/api/v1/auth/oauth2/google
+          kakao:
+            redirect-uri: https://api.betterday.one/api/v1/auth/oauth2/kakao
+          apple:
+            redirect-uri: https://api.betterday.one/api/v1/auth/oauth2/apple

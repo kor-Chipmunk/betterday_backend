@@ -1,3 +1,50 @@
 spring:
-  profiles:
-    active: local
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ENC(+MwxbHQlJhB5+bE8qV8H0/NgJDBZ2QexsQZnEoUM4aCWqyIqmCVoYCtdBK7N6/7A46kQp8ttKd/Jbx/4pW+wjIC5iPxcNFj1JOXqJwUBwd6hgaCC2tOhBw==)
+            client-secret: ENC(MYPnFyP7GliFDiG7ji91+QyoN3RXJ8jRa6VfiTfzhyA//uYI6dBMd7UwwVFrL3Pf)
+            authorization-grant-type: authorization_code
+            scope:
+              - https://www.googleapis.com/auth/userinfo.profile
+              - https://www.googleapis.com/auth/userinfo.email
+              - openid
+            client-authentication-method: basic
+            client-name: Google
+          kakao:
+            client-id: ENC(J2fEyg3tEaJjcrbZAGMvtCkYlzuq7IoiwGQ7L8V6Il3WRiXVvSg8JmqN2m3/SOvx)
+            client-secret: ENC(x0QLNnkuLoxHTacKcoQbnx2vhuieemFxFHz9NSVHH+lQHvtRiOZ83hIEmx4gQKiL)
+            authorization-grant-type: authorization_code
+            scope:
+              - openid
+            client-authentication-method: client_secret_post
+            client-name: Kakao
+          apple:
+            client-id: YOUR_APPLE_CLIENT_ID
+            client-name: Apple
+            client-authentication-method: private_key_jwt
+            authorization-grant-type: authorization_code
+            scope: name email
+            client-secret: YOUR_CLIENT_SECRET
+            jwk-set-uri: https://appleid.apple.com/auth/keys
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v1/userinfo
+            user-name-attribute: id
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+          apple:
+            issuer-uri: https://appleid.apple.com
+            token-uri: https://appleid.apple.com/auth/token
+            authorization-uri: https://appleid.apple.com/auth/authorize
+
+client:
+  read-timeout: 5000
+  write-timeout: 5000
