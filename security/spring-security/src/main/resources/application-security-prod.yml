@@ -2,3 +2,8 @@ spring:
   config:
     activate:
       on-profile: prod
+
+cors:
+  allowed:
+    origins:
+      - https://api.betterday.one

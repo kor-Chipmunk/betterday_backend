@@ -1,3 +1,38 @@
 spring:
   profiles:
     include: oauth2
+
+cors:
+  allowed:
+    origins:
+      - http://localhost:10000
+    methods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+    credentials: false
+
+security:
+  white-list:
+    get:
+      # default
+      - /
+      - /favicon.ico
+      # h2
+      - /h2-console
+      - /h2-console/**
+      # swagger
+      - /v3/**
+      - /swagger-ui/**
+      - /swagger-resources/**
+      # oauth2
+      - /api/v1/auth/oauth2/**
+
+    post:
+      # auth
+      - /api/v1/auth/**
+      # alarm registry
+      - /api/v1/alarms
