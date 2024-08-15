@@ -1,58 +1,54 @@
 package com.mashup.betterday.jwt;
 
+import com.mashup.betterday.jwt.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Jwts.ZIP;
-import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
 @Slf4j
+@Component
 public class JwtService {
 
-    @Value("${jwt.issuer}")
-    private String issuer;
-
-    @Value("${jwt.access-token.expiration}")
-    private Long accessTokenExpirationSeconds;
-
-    @Value("${jwt.refresh-token.expiration}")
-    private Long refreshTokenExpirationSeconds;
+    private final JwtProperties jwtProperties;
 
     private final SecretKey accessTokenSecret;
     private final SecretKey refreshTokenSecret;
 
-    public JwtService(
-            @Value("#{environment['jwt.access-token.secret-key']}")
-            String accessTokenSecretKey,
-            @Value("#{environment['jwt.refresh-token.secret-key']}")
-            String refreshTokenSecretKey
-    ) {
-        accessTokenSecretKey = Encoders.BASE64.encode(accessTokenSecretKey.getBytes(StandardCharsets.UTF_8));
-        this.accessTokenSecret = Keys.hmacShaKeyFor(accessTokenSecretKey.getBytes(StandardCharsets.UTF_8));
+    public JwtService(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
 
-        refreshTokenSecretKey = Encoders.BASE64.encode(refreshTokenSecretKey.getBytes(StandardCharsets.UTF_8));
-        this.refreshTokenSecret = Keys.hmacShaKeyFor(refreshTokenSecretKey.getBytes(StandardCharsets.UTF_8));
+        this.accessTokenSecret = Keys.hmacShaKeyFor(
+                jwtProperties.getAccessToken()
+                        .getSecretKey()
+                        .getBytes(StandardCharsets.UTF_8)
+        );
+
+        this.refreshTokenSecret = Keys.hmacShaKeyFor(
+                jwtProperties.getRefreshToken()
+                        .getSecretKey()
+                        .getBytes(StandardCharsets.UTF_8)
+        );
     }
 
     public String generateAccessToken(Long id, String email, Date baseDate) {
+        final long accessTokenExpirationSeconds = jwtProperties.getAccessToken().getExpiration();
         final long expirationMillis = baseDate.getTime() + Duration.ofSeconds(accessTokenExpirationSeconds).toMillis();
         final Date expiration = new Date(expirationMillis);
 
         return Jwts.builder()
                 .header()
-                    .type(Header.JWT_TYPE)
+                .type(Header.JWT_TYPE)
                 .and()
-                .issuer(issuer)
+                .issuer(jwtProperties.getIssuer())
                 .expiration(expiration)
                 .subject(email)
                 .claim("id", id)
@@ -62,6 +58,7 @@ public class JwtService {
     }
 
     public String generateRefreshToken(Date baseDate) {
+        final long refreshTokenExpirationSeconds = jwtProperties.getRefreshToken().getExpiration();
         final long expirationMillis = baseDate.getTime() + Duration.ofSeconds(refreshTokenExpirationSeconds).toMillis();
         final Date expiration = new Date(expirationMillis);
 
@@ -69,7 +66,7 @@ public class JwtService {
                 .header()
                 .type(Header.JWT_TYPE)
                 .and()
-                .issuer(issuer)
+                .issuer(jwtProperties.getIssuer())
                 .expiration(expiration)
                 .compressWith(ZIP.GZIP)
                 .signWith(refreshTokenSecret)

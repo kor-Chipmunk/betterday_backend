@@ -6,5 +6,3 @@ jwt:
   refresh-token:
     secret-key: anotherkeyanotherkeyanotherkeyanotherkeyanotherkeyanotherkey
     expiration: 2592000 # 30d
-
-# TODO: Properties 로 바꾸기
