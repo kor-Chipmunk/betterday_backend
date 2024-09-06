@@ -4,6 +4,8 @@ spring:
       on-profile: prod
 
 cors:
-  allowed:
-    origins:
-      - https://api.betterday.one
+  allowed-origins:
+    - https://api.betterday.one
+    # Apple Login CORS 방지하기 위해 호스트 허용
+    - https://appleid.apple.com
+  credentials: true
