@@ -34,4 +34,6 @@ dependencies {
     implementation(project(":usecase:diary-usecase"))
     implementation(project(":usecase:user-usecase"))
     implementation(project(":usecase:weekly-report-usecase"))
+
+    implementation(project(":adapter:oauth2"))
 }
