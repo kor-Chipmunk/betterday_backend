@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "client")
 public class ClientProperties {
 
+    private Long connectTimeout;
     private Long readTimeout;
-    private Long writeTimeout;
 
 }
