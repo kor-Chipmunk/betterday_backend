@@ -9,12 +9,14 @@ import com.mashup.betterday.UserCreateUsecase;
 import com.mashup.betterday.exception.BusinessException;
 import com.mashup.betterday.exception.ErrorCode;
 import com.mashup.betterday.model.auth.AuthDto;
+import com.mashup.betterday.model.auth.OAuth2AppleRequest;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,6 +48,25 @@ public class OAuth2Controller {
                         code
                 )
         );
+
+        // 웹에서 호출 시 Token 정보 URL 노출 방지로 Redirect 안함
+        return this.loginFromToken(providerType, tokenResponse.getAccessToken());
+    }
+
+    @PostMapping("/{providerType}")
+    public ResponseEntity<AuthDto> loginPost(
+            @PathVariable String providerType,
+            OAuth2AppleRequest request // application/x-www-form-urlencoded;charset=UTF-8 인식 위해, @RequestBody 제거
+    ) {
+        OAuth2TokenUsecase.TokenResponse tokenResponse = oAuth2TokenUsecase.getToken(
+                new TokenRequest(
+                        providerType,
+                        request.getCode()
+                )
+        );
+
+        log.info("accessKey: {}", tokenResponse.getAccessToken());
+        log.info("refreshKey: {}", tokenResponse.getRefreshToken());
 
         // 웹에서 호출 시 Token 정보 URL 노출 방지로 Redirect 안함
         return this.loginFromToken(providerType, tokenResponse.getAccessToken());
