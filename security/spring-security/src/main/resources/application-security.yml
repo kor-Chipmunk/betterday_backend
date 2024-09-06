@@ -1,19 +1,19 @@
 spring:
   profiles:
     include: oauth2
+    active: local
 
 cors:
-  allowed:
-    origins:
-      - http://localhost:10000
-    methods:
-      - GET
-      - POST
-      - PUT
-      - PATCH
-      - DELETE
-      - OPTIONS
-    credentials: false
+  allowed-origins:
+    - http://localhost:10000
+  allowed-methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - OPTIONS
+  credentials: false
 
 security:
   white-list:
@@ -34,5 +34,7 @@ security:
     post:
       # auth
       - /api/v1/auth/**
+      # oauth2
+      - /api/v1/auth/oauth2/**
       # alarm registry
       - /api/v1/alarms
