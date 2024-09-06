@@ -22,6 +22,10 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
                                   Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+        if (body instanceof String) {
+            return body;
+        }
+
         if (body instanceof GlobalResponse) {
             return body;
         }
