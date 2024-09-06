@@ -34,6 +34,10 @@ public class DiaryDto {
     }
 
     public DiaryDto withAlarm(Alarm alarm) {
+        if (alarm == null) {
+            return this;
+        }
+
         this.alarm = AlarmDto.from(alarm);
         return this;
     }
