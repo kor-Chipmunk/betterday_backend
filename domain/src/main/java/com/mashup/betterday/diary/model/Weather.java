@@ -25,15 +25,14 @@ public enum Weather {
     WINDY,
     FOGGY,
     HUMID,
-    DRY
-    ;
+    DRY;
 
     private static final Map<String, Weather> maps = Arrays.stream(Weather.values()).collect(
             Collectors.toUnmodifiableMap(Weather::name, Function.identity())
     );
 
     public static Weather from(String weather) {
-        return maps.getOrDefault(weather, UNKNOWN);
+        return maps.getOrDefault(weather.toUpperCase(), UNKNOWN);
     }
 
 }
