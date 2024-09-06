@@ -1,5 +1,17 @@
+ext {
+    jjwtVersion = '0.12.5'
+}
+
 dependencies {
     implementation "org.springframework:spring-web:${springFrameworkVersion}"
+
+    // JWT Token
+    implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
+
+    // for PemReader
+    implementation 'org.bouncycastle:bcpkix-jdk15on:1.70'
 
     implementation(project(":common"))
 }

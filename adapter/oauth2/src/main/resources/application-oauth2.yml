@@ -22,13 +22,16 @@ spring:
             client-authentication-method: client_secret_post
             client-name: Kakao
           apple:
-            client-id: YOUR_APPLE_CLIENT_ID
-            client-name: Apple
-            client-authentication-method: private_key_jwt
+            client-id: ENC(02pBa5Ln6MTJxqYYZBtRaH4lOFozd1S74pV9yMuA/aE=)
+            team-id: ENC(OLaQjdkwbKKGCWBGQ0/wF9YA1P5uaSbX)
+            key-id: ENC(kj4Suf3TYsTmENma8zQ7mGzOcWl8rRvk)
+            key-path: ENC(/HKHNBtnuQaUrA9w/01tjDTqvf2YSNjTxQ14zdVt6nemP7a28CPA0oaCY/8NQX+N)
             authorization-grant-type: authorization_code
-            scope: name email
-            client-secret: YOUR_CLIENT_SECRET
-            jwk-set-uri: https://appleid.apple.com/auth/keys
+            scope:
+              - name
+              - email
+            client-authentication-method: post
+            client-name: Apple
         provider:
           google:
             authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
@@ -43,8 +46,10 @@ spring:
           apple:
             issuer-uri: https://appleid.apple.com
             token-uri: https://appleid.apple.com/auth/token
+            public-key-uri: https://appleid.apple.com/auth/keys
             authorization-uri: https://appleid.apple.com/auth/authorize
+            user-name-attribute: sub
 
 client:
+  connect-timeout: 5000
   read-timeout: 5000
-  write-timeout: 5000

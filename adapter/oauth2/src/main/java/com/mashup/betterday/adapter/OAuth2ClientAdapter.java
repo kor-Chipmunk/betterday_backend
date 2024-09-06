@@ -1,6 +1,7 @@
 package com.mashup.betterday.adapter;
 
 import com.mashup.betterday.client.OAuth2Client;
+import com.mashup.betterday.client.apple.AppleClient;
 import com.mashup.betterday.client.google.GoogleClient;
 import com.mashup.betterday.client.kakao.KakaoClient;
 import com.mashup.betterday.user.model.ProviderType;
@@ -17,11 +18,13 @@ public class OAuth2ClientAdapter implements OAuth2ClientPort {
 
     private final GoogleClient googleClient;
     private final KakaoClient kakaoClient;
+    private final AppleClient appleClient;
 
     private List<OAuth2Client> getOAuth2Clients() {
         return List.of(
                 googleClient,
-                kakaoClient
+                kakaoClient,
+                appleClient
         );
     }
 
