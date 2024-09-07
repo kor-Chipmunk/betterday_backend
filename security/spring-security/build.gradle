@@ -1,12 +1,12 @@
 dependencies {
     // Spring web
-    implementation("org.springframework.boot:spring-boot-starter-web:${springVersion}") {
+    implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude module: 'spring-boot-starter-tomcat'
     }
-    implementation "org.springframework.boot:spring-boot-starter-undertow:${springVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}"
 
     // Spring Security
-    implementation "org.springframework.boot:spring-boot-starter-security:${springVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
 
     implementation(project(":security:jwt-security"))
     implementation(project(":adapter:postgres"))

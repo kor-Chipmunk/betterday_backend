@@ -31,13 +31,12 @@ subprojects {
     }
 
     ext {
-        springVersion = '3.3.2'
-        springFrameworkVersion = '6.1.11'
+        springBootVersion = '3.3.3'
+        springFrameworkVersion = '6.1.12'
 
         lombokVersion = '1.18.34'
-        jUnitVersion = '5.10.3'
-        mockitoCoreVersion = '5.12.0'
-        mockitoInlineVersion = '5.2.0'
+        jUnitVersion = '5.11.0'
+        mockitoCoreVersion = '5.13.0'
     }
 
     dependencies {
@@ -46,7 +45,6 @@ subprojects {
 
         testImplementation "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
         testImplementation "org.mockito:mockito-core:${mockitoCoreVersion}"
-        testImplementation "org.mockito:mockito-inline:${mockitoInlineVersion}"
     }
 
     tasks.named('test') {

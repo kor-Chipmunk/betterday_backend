@@ -16,10 +16,10 @@ ext {
 
 dependencies {
     // Web MVC with UnderTow
-    implementation("org.springframework.boot:spring-boot-starter-web:${springVersion}") {
+    implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude module: 'spring-boot-starter-tomcat'
     }
-    implementation("org.springframework.boot:spring-boot-starter-undertow:${springVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
 
     // OpenAPI
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openapiStarterVersion}"

@@ -1,7 +1,7 @@
 subprojects {
     dependencies {
         // Spring Boot
-        implementation "org.springframework.boot:spring-boot-starter:${springVersion}"
+        implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
 
         implementation(project(":core"))
         implementation(project(":common"))

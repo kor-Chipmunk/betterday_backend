@@ -1,11 +1,11 @@
 subprojects {
     dependencies {
         // Spring Boot
-        implementation "org.springframework.boot:spring-boot-starter:${springVersion}"
-        testImplementation "org.springframework.boot:spring-boot-starter-test:${springVersion}"
+        implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+        testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
 
         // Actuator
-        implementation "org.springframework.boot:spring-boot-starter-actuator:${springVersion}"
+        implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
 
         implementation(project(":security:jasypt-security"))
         implementation(project(":core"))
