@@ -1,21 +1,4 @@
-version: '3.9'
 services:
-  betterday-db:
-    image: postgres:16.3
-    container_name: betterday-db
-    restart: always
-    ports:
-      - 11000:5432
-    environment:
-      POSTGRES_PASSWORD: N3f9g4iLKLRErjo
-      POSTGRES_DB: betterday
-      TZ: Asia/Seoul
-    volumes:
-      - ./.docker/postgres/:/var/lib/postgresql/data
-      - ./infra/:/docker-entrypoint-initdb.d
-    networks:
-      - betterday-network
-
   localstack:
     container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"
     image: localstack/localstack
@@ -25,13 +8,10 @@ services:
     environment:
       # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
       - DEBUG=${DEBUG:-0}
+      - SERVICES=sqs,sns
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=us-east-1
     volumes:
       - "${LOCALSTACK_VOLUME_DIR:-./.docker/localstack}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
-    networks:
-      - betterday-network
-
-networks:
-  betterday-network:
-    driver: bridge
-    external: true
