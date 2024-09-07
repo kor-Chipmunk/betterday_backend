@@ -6,10 +6,15 @@
 ### Tech stacks
 
 * Language : Java 17
-* Server Framework : Spring Boot 3.3.2
+* Server Framework : Spring Boot 3.3.3
 * Database : PostgreSQL (for live), h2 (for local)
 * ORM : Spring Data JPA
 * Security : Spring Security / OAuth2
+* Event : Spring Application Event / AWS SNS / AWS SQS
+
+### Architecture
+
+TBA
 
 ### Modules
 
@@ -17,7 +22,7 @@
 * `common` : 공통 유틸 모듈 (Jackson 등)
 * `domain` : 도메인 모듈
 * `api`
-    * `external-api` : 외부 클라이언트가 요청할 API 모듈
+    * `external-api` : 외부 클라이언트가 요청할 REST API 모듈
 * `usecase`
     * `core` : 외부 모듈(주로 어댑터)가 구현할 포트 모음
     * `alarm-usecase` : 알람 유즈케이스 모듈
@@ -28,11 +33,27 @@
     * `weekly-report-usecase` : 주간 리포트 유즈케이스 모듈
 * `adapter`
     * `core` : 외부 모듈이 구현할 인터페이스 모음
+    * `aws-sns` : AWS SNS 이벤트 발행 모듈
+    * `aws-sqs` : AWS SQS 이벤트 수신 모듈
     * `oauth2` : OAuth2 통신 모듈
     * `postgres` : PostgreSQL DB 통신 모듈
-    * `sns` : AWS SNS 이벤트 발행 모듈
+    * `replicate` : Replicate API 통신 모듈
     * `spring-event` : Spring Application 이벤트 발행 모듈
 * `security`
-    * `jwt-security` : JWT 토큰 모듈
     * `aes-security` : AES 암호화 모듈
+    * `jasypt-security` : Jasypt 암호화 모듈
+    * `jwt-security` : JWT 토큰 모듈
     * `spring-security` : 스프링 시큐리티 모듈
+
+### How to run
+
+```bash
+# Build
+$ ./gradlew clean build bootJar -Djasypt.encryptor.password=${JASYPT_PASSWORD}
+
+# Local
+$ java -Xms512m -Xmx1024m -Dspring.profiles.active=local -Djasypt.encryptor.password=${JASYPT_PASSWORD} -Duser.timezone=UTC -jar external-api.jar
+
+# Production
+$ java -Xms512m -Xmx1024m -Dspring.profiles.active=prod -Djasypt.encryptor.password=${JASYPT_PASSWORD} -Duser.timezone=UTC -jar external-api.jar
+```
