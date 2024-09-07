@@ -1,8 +1,8 @@
 package com.mashup.betterday;
 
-import com.mashup.betterday.jwt.JwtService;
 import com.mashup.betterday.exception.BusinessException;
 import com.mashup.betterday.exception.ErrorCode;
+import com.mashup.betterday.jwt.JwtService;
 import com.mashup.betterday.user.model.User;
 import com.mashup.port.UserPort;
 import java.util.Date;
@@ -30,7 +30,11 @@ public class AuthLoginService implements AuthLoginUsecase {
                 new Date()
         );
 
-        String refreshToken = jwtService.generateRefreshToken(new Date());
+        String refreshToken = jwtService.generateRefreshToken(
+                user.getId().getValue(),
+                user.getAccount().getEmail(),
+                new Date()
+        );
 
         return new LoginResponse(
                 user,
