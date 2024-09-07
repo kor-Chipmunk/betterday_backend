@@ -52,8 +52,8 @@ TBA
 $ ./gradlew clean build bootJar -Djasypt.encryptor.password=${JASYPT_PASSWORD}
 
 # Local
-$ java -Xms512m -Xmx1024m -Dspring.profiles.active=local -Djasypt.encryptor.password=${JASYPT_PASSWORD} -Duser.timezone=UTC -jar external-api.jar
+$ java -Xms512m -Xmx1024m -Dspring.profiles.active=local -Djasypt.encryptor.password=${JASYPT_PASSWORD} -Duser.timezone=UTC -jar ./api/external-api/build/libs/external-api.jar
 
 # Production
-$ java -Xms512m -Xmx1024m -Dspring.profiles.active=prod -Djasypt.encryptor.password=${JASYPT_PASSWORD} -Duser.timezone=UTC -jar external-api.jar
+$ java -Xms512m -Xmx1024m -Dspring.profiles.active=prod -Djasypt.encryptor.password=${JASYPT_PASSWORD} -Duser.timezone=UTC -jar ./api/external-api/build/libs/external-api.jar
 ```
