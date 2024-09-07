@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+replicate:
+  api:
+    version: ENC(5CFEOk2YPBGVuSRTov5npnDVHx1NzgOb79hyCHhh5xtSRhD1jesW471LBIIGtwZ2szVefJS0bfaFSax6OvV+K47pT/Yc7mHNjREmzBV7uqc=)
+    key: ENC(ACiQ36qSOEIJ3eTVRcWSgAqzXd/gnTljQZq+kJIknyU3NdNMGWqqaQijwkc/bVzFIaZvcmW+QtE=)
+    endpoint:
+      base: https://api.replicate.com/v1
+      create: /predictions
+      get: /predictions/{predictionId}
+      cancel: /predictions/{predictionId}/cancel
