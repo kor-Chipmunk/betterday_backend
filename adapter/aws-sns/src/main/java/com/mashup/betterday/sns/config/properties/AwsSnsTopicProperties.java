@@ -6,9 +6,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "io.reflectoring.aws.sns")
+@ConfigurationProperties(prefix = "spring.cloud.aws.sns.topic")
 public class AwsSnsTopicProperties {
 
-    private String topicArn;
+    private String diaryTopicArn;
 
 }

@@ -18,9 +18,9 @@ public class DiarySnsPublisher {
     private final AwsSnsTopicProperties properties;
 
     public void publish(DiaryCreatedEventPayload payload) {
-        log.info("topic : {}", properties.getTopicArn());
-        snsTemplate.convertAndSend(properties.getTopicArn(), payload);
-        log.info("Successfully published message to topic ARN: {}", properties.getTopicArn());
+        log.info("topic : {}", properties.getDiaryTopicArn());
+        snsTemplate.convertAndSend(properties.getDiaryTopicArn(), payload);
+        log.info("Successfully published message to topic ARN: {}", properties.getDiaryTopicArn());
     }
 
 }
