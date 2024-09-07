@@ -2,12 +2,15 @@ package com.mashup.betterday.controller;
 
 import com.mashup.betterday.AuthLoginUsecase;
 import com.mashup.betterday.OAuth2LoginUsecase;
+import com.mashup.betterday.RefreshTokenUsecase;
 import com.mashup.betterday.UserCreateUsecase;
 import com.mashup.betterday.exception.BusinessException;
 import com.mashup.betterday.exception.ErrorCode;
 import com.mashup.betterday.model.auth.AuthDto;
 import com.mashup.betterday.model.auth.AuthRequest;
 import com.mashup.betterday.model.auth.OAuth2Request;
+import com.mashup.betterday.model.auth.RefreshTokenRequest;
+import com.mashup.betterday.model.auth.TokenDto;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,7 @@ public class AuthController {
 
     private final AuthLoginUsecase authLoginUsecase;
     private final OAuth2LoginUsecase oAuth2LoginUsecase;
+    private final RefreshTokenUsecase refreshTokenUsecase;
 
     private final UserCreateUsecase userCreateUsecase;
 
@@ -96,9 +100,17 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    ResponseEntity<Object> refresh(
-            @RequestBody AuthRequest request
-    ) {
-        return ResponseEntity.ok(null);
+    ResponseEntity<TokenDto> refresh(@RequestBody RefreshTokenRequest request) {
+
+        RefreshTokenUsecase.TokenResponse response = refreshTokenUsecase.refresh(
+                new RefreshTokenUsecase.Request(request.getRefreshToken())
+        );
+
+        return ResponseEntity.ok(
+                new TokenDto(
+                        response.getAccessToken(),
+                        request.getRefreshToken()
+                )
+        );
     }
 }

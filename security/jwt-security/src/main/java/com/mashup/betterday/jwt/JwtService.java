@@ -57,7 +57,7 @@ public class JwtService {
                 .compact();
     }
 
-    public String generateRefreshToken(Date baseDate) {
+    public String generateRefreshToken(Long id, String email, Date baseDate) {
         final long refreshTokenExpirationSeconds = jwtProperties.getRefreshToken().getExpiration();
         final long expirationMillis = baseDate.getTime() + Duration.ofSeconds(refreshTokenExpirationSeconds).toMillis();
         final Date expiration = new Date(expirationMillis);
@@ -68,6 +68,8 @@ public class JwtService {
                 .and()
                 .issuer(jwtProperties.getIssuer())
                 .expiration(expiration)
+                .subject(email)
+                .claim("id", id)
                 .compressWith(ZIP.GZIP)
                 .signWith(refreshTokenSecret)
                 .compact();
@@ -101,4 +103,27 @@ public class JwtService {
                 .build()
                 .isSigned(token);
     }
+
+    public <T> T getRefreshTokenPayload(String token, String key, Class<T> clazz) {
+        final Claims jwtPayload = getRefreshTokenPayload(token);
+        return jwtPayload.get(key, clazz);
+    }
+
+    public String getRefreshTokenSubject(String token) {
+        final Claims jwtPayload = getRefreshTokenPayload(token);
+        return jwtPayload.getSubject();
+    }
+
+    private Claims getRefreshTokenPayload(String token) {
+        final Jws<Claims> claims = parseRefreshTokenClaims(token);
+        return claims.getPayload();
+    }
+
+    private Jws<Claims> parseRefreshTokenClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(refreshTokenSecret)
+                .build()
+                .parseSignedClaims(token);
+    }
+
 }

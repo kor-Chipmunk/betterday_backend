@@ -32,7 +32,11 @@ public class OAuth2LoginService implements OAuth2LoginUsecase {
                 new Date()
         );
 
-        String refreshToken = jwtService.generateRefreshToken(new Date());
+        String refreshToken = jwtService.generateRefreshToken(
+                user.getId().getValue(),
+                user.getAccount().getEmail(),
+                new Date()
+        );
 
         return new LoginResponse(
                 user,
