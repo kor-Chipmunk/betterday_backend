@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: local
+
+  cloud:
+    aws:
+      credentials:
+        access-key: test
+        secret-key: test
+      sqs:
+        region:
+          static: us-east-1

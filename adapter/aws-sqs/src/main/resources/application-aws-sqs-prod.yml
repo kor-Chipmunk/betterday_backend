@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  cloud:
+    aws:
+      credentials:
+        access-key: ENC(O6UmeP2KUK/LkP3lM0W9ysKF69J5GOwXn00k8ErELnc=)
+        secret-key: ENC(SRUsUmUUq3QAvoqQexrjm151gi+6b5REXlSUIO9pV4CNCgfsPI5puuroAWvuvqsUAiQY8ljeQIA=)
+      sqs:
+        region:
+          static: ENC(JNhB05IqCxNL9iYJZGMq0JTkN74bZcB+)
