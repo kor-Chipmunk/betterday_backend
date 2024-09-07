@@ -6,7 +6,9 @@ import com.mashup.betterday.diary.model.Diary;
 import com.mashup.betterday.model.diary.DiaryDto;
 import com.mashup.betterday.model.diary.DiarySyncBatchRequest;
 import com.mashup.betterday.user.model.User;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "일기 동기화", description = "일기 동기화 API")
 @SecurityRequirement(name = "Bearer Authentication")
 @RequiredArgsConstructor
 @RestController
@@ -23,6 +26,7 @@ public class DiarySyncController {
 
     private final DiarySyncBatchUsecase diarySyncBatchUsecase;
 
+    @Operation(summary = "일기 동기화", description = "일기 UID를 기준으로 새로운 일기는 생성하고, 기존 일기는 수정합니다.")
     @PostMapping
     ResponseEntity<List<DiaryDto>> syncBatch(
             @RequestBody DiarySyncBatchRequest request,

@@ -12,7 +12,9 @@ import com.mashup.betterday.model.diary.DiaryCreateRequest;
 import com.mashup.betterday.model.diary.DiaryDto;
 import com.mashup.betterday.model.diary.DiaryUpdateRequest;
 import com.mashup.betterday.user.model.User;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "일기", description = "일기 API")
 @SecurityRequirement(name = "Bearer Authentication")
 @RequiredArgsConstructor
 @RestController
@@ -40,6 +43,7 @@ public class DiaryController {
 
     private final AlarmReadUsecase alarmReadUsecase;
 
+    @Operation(summary = "일기 목록 조회", description = "일기 목록을 조회합니다.")
     @GetMapping
     ResponseEntity<List<DiaryDto>> read(
             @RequestParam(name = "page", defaultValue = "0") Integer page,
@@ -67,6 +71,7 @@ public class DiaryController {
         );
     }
 
+    @Operation(summary = "일기 조회", description = "일기 UID로 조회합니다.")
     @GetMapping("/{diaryUId}")
     ResponseEntity<DiaryDto> readOne(
             @PathVariable(name = "diaryUId") String uid,
@@ -81,6 +86,7 @@ public class DiaryController {
         );
     }
 
+    @Operation(summary = "일기 생성", description = "일기를 생성합니다.")
     @PostMapping
     ResponseEntity<DiaryDto> create(
             @RequestBody DiaryCreateRequest request,
@@ -98,6 +104,7 @@ public class DiaryController {
         return ResponseEntity.ok(DiaryDto.from(createdDiary));
     }
 
+    @Operation(summary = "일기 수정", description = "일기 UID로 수정합니다.")
     @PutMapping("/{diaryUId}")
     ResponseEntity<DiaryDto> update(
             @PathVariable("diaryUId") String uid,
@@ -115,6 +122,7 @@ public class DiaryController {
         return ResponseEntity.ok(DiaryDto.from(updatedDiary));
     }
 
+    @Operation(summary = "일기 삭제", description = "일기 UID로 삭제합니다.")
     @DeleteMapping("/{diaryUId}")
     ResponseEntity<DiaryDto> delete(
             @PathVariable("diaryUId") String uid,

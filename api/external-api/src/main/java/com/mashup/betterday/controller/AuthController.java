@@ -11,6 +11,8 @@ import com.mashup.betterday.model.auth.AuthRequest;
 import com.mashup.betterday.model.auth.OAuth2Request;
 import com.mashup.betterday.model.auth.RefreshTokenRequest;
 import com.mashup.betterday.model.auth.TokenDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "인증", description = "인증 API")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -30,6 +33,7 @@ public class AuthController {
 
     private final UserCreateUsecase userCreateUsecase;
 
+    @Operation(summary = "이메일 로그인", description = "이메일 / 패스워드로 로그인합니다.")
     @PostMapping("/login")
     ResponseEntity<AuthDto> login(
             @RequestBody AuthRequest request
@@ -49,6 +53,7 @@ public class AuthController {
         );
     }
 
+    @Operation(summary = "OAuth2 로그인", description = "OAuth2 프로바이더 타입과 고유 아이디로 로그인합니다.")
     @PostMapping("/login/oauth2")
     ResponseEntity<AuthDto> loginOauth2(
             @RequestBody OAuth2Request request
@@ -99,6 +104,7 @@ public class AuthController {
         }
     }
 
+    @Operation(summary = "액세스 토큰 재발급", description = "리프레쉬 토큰으로 액세스 토큰을 재발급합니다.")
     @PostMapping("/refresh")
     ResponseEntity<TokenDto> refresh(@RequestBody RefreshTokenRequest request) {
 

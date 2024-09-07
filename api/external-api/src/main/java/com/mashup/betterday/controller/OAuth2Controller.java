@@ -10,6 +10,8 @@ import com.mashup.betterday.exception.BusinessException;
 import com.mashup.betterday.exception.ErrorCode;
 import com.mashup.betterday.model.auth.AuthDto;
 import com.mashup.betterday.model.auth.OAuth2AppleRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+@Tag(name = "OAuth2 인증", description = "OAuth2 인증 API")
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -34,6 +37,7 @@ public class OAuth2Controller {
 
     private final UserCreateUsecase userCreateUsecase;
 
+    @Operation(summary = "OAuth2 로그인", description = "프로바이더 유형과 인가 코드로 토큰을 OAuth2 서버로부터 전달받아 로그인합니다.")
     @GetMapping("/{providerType}")
     public ResponseEntity<AuthDto> login(
             @PathVariable String providerType,
@@ -53,6 +57,7 @@ public class OAuth2Controller {
         return this.loginFromToken(providerType, tokenResponse.getAccessToken());
     }
 
+    @Operation(summary = "OAuth2 로그인", description = "GET 메소드와 동일합니다. 애플에서 호출하는 POST 메소드입니다.")
     @PostMapping("/{providerType}")
     public ResponseEntity<AuthDto> loginPost(
             @PathVariable String providerType,
@@ -65,13 +70,11 @@ public class OAuth2Controller {
                 )
         );
 
-        log.info("accessKey: {}", tokenResponse.getAccessToken());
-        log.info("refreshKey: {}", tokenResponse.getRefreshToken());
-
         // 웹에서 호출 시 Token 정보 URL 노출 방지로 Redirect 안함
         return this.loginFromToken(providerType, tokenResponse.getAccessToken());
     }
 
+    @Operation(summary = "OAuth2 로그인", description = "프로바이더 유형과 액세스 토큰으로 로그인합니다.")
     @GetMapping("/{providerType}/token")
     public ResponseEntity<AuthDto> loginFromToken(
             @PathVariable String providerType,
@@ -131,6 +134,7 @@ public class OAuth2Controller {
         }
     }
 
+    @Operation(summary = "OAuth2 인가", description = "프로바이더 유형으로 인가 URL을 반환합니다.")
     @GetMapping("/{providerType}/authorize")
     public RedirectView authorize(@PathVariable String providerType) {
         OAuth2AuthorizeUsecase.AuthorizeResponse response = oAuth2AuthorizeUsecase.getAuthorizeURL(
