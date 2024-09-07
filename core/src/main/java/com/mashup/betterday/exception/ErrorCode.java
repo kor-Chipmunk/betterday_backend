@@ -22,6 +22,9 @@ public enum ErrorCode {
 
     WEEKLY_REPORT_CREATE_FAILED(400, "주간 리포트 등록에 실패했습니다."),
     WEEKLY_REPORT_NOT_FOUND(400, "주간 리포트를 조회할 수 없습니다."),
+
+    REPLICATE_CONNECTION_FAILED(400, "Replicate 서버 연결에 실패했습니다."),
+    REPLICATE_PREDICTION_CREATE_FAILED(400, "모델 생성에 실패했습니다."),
     ;
 
     private final int code;
