@@ -133,4 +133,5 @@ public class DiaryController {
         );
         return ResponseEntity.ok(DiaryDto.from(deletedDiary));
     }
+    
 }

@@ -41,4 +41,18 @@ public class DiaryCalendarController {
                         .toList()
         );
     }
+
+    @Operation(summary = "캘린더 모든 목록 조회", description = "모든 일기 Uid / 작성 시점 목록을 조회합니다.")
+    @GetMapping("/all")
+    ResponseEntity<List<DiaryCalendarDto>> readAllCalendar(
+            @AuthUser User user
+    ) {
+        List<Diary> diaries = diaryReadCalendarUsecase.readAll(user);
+
+        return ResponseEntity.ok(
+                diaries.stream()
+                        .map(DiaryCalendarDto::from)
+                        .toList()
+        );
+    }
 }

@@ -1,7 +1,6 @@
 package com.mashup.betterday;
 
 import com.mashup.betterday.diary.model.Diary;
-import com.mashup.betterday.diary.model.DiaryId;
 import com.mashup.betterday.user.model.User;
 import com.mashup.port.DiaryPort;
 import java.time.LocalDateTime;
@@ -20,4 +19,8 @@ public class DiaryReadCalendarService implements DiaryReadCalendarUsecase {
         return diaryPort.findAllByCalendar(user.getId(), from, until);
     }
 
+    @Override
+    public List<Diary> readAll(User user) {
+        return diaryPort.findAll(user.getId());
+    }
 }

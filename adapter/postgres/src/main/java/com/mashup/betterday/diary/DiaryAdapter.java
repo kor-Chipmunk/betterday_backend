@@ -9,6 +9,7 @@ import com.mashup.port.DiaryPort;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -113,6 +114,15 @@ public class DiaryAdapter implements DiaryPort {
                         from,
                         until
                 );
+        return diaryEntities.stream()
+                .map(DiaryEntityConverter::toModel)
+                .toList();
+    }
+
+    @Override
+    public List<Diary> findAll(@NonNull UserId id) {
+        final List<DiaryEntity> diaryEntities =
+                diaryJpaRepository.findAllByUserId(id.getValue());
         return diaryEntities.stream()
                 .map(DiaryEntityConverter::toModel)
                 .toList();

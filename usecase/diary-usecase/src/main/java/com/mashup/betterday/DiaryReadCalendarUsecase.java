@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DiaryReadCalendarUsecase {
     List<Diary> read(User user, LocalDateTime from, LocalDateTime until);
+
+    List<Diary> readAll(User user);
 }
