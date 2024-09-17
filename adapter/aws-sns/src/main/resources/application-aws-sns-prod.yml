@@ -1,4 +1,3 @@
-# TODO: 로컬용으로 분리 필요
 spring:
   cloud:
     aws:
