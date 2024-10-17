@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class Content {
-    public static final int MAX_CONTENT_LENGTH = 128;
+    public static final int MAX_CONTENT_LENGTH = 280;
 
     private String content;
 
