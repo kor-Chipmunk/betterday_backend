@@ -1,11 +1,10 @@
 package com.mashup.betterday;
 
 import com.mashup.betterday.jwt.JwtAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -13,10 +12,10 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class WebSecurityConfig {
     private static final String[] POST_WHITE_LIST = {
             "/api/v1/users/**",
@@ -30,6 +29,14 @@ public class WebSecurityConfig {
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    private final HandlerExceptionResolver resolver;
+
+    public WebSecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
+                             @Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.resolver = resolver;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -45,7 +52,11 @@ public class WebSecurityConfig {
                 config.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
 
-        http.exceptionHandling(Customizer.withDefaults());
+        http.exceptionHandling(config ->
+                config.authenticationEntryPoint((request, response, authException) ->
+                        resolver.resolveException(request, response, null,
+                                (Exception) request.getAttribute("exception"))
+                ));
 
         http.authorizeHttpRequests(auth ->
                 auth.requestMatchers(HttpMethod.POST, POST_WHITE_LIST).permitAll()

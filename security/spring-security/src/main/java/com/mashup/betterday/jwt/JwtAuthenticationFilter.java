@@ -37,10 +37,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String token = extractToken(authorizationHeader);
         final Authentication jwtToken = new JwtAuthenticationToken(token);
 
-        final Authentication authentication = jwtAuthenticationManager.authenticate(jwtToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        filterChain.doFilter(request, response);
+        try {
+            final Authentication authentication = jwtAuthenticationManager.authenticate(jwtToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (Exception e) {
+            request.setAttribute("exception", e);
+        } finally {
+            filterChain.doFilter(request, response);
+        }
     }
 
     private boolean isValidTokenPrefix(String header) {

@@ -1,9 +1,9 @@
 package com.mashup.betterday.jwt;
 
-import com.mashup.betterday.security.PrincipalDetails;
-import com.mashup.betterday.security.UserDetailsToken;
 import com.mashup.betterday.exception.BusinessException;
 import com.mashup.betterday.exception.ErrorCode;
+import com.mashup.betterday.security.PrincipalDetails;
+import com.mashup.betterday.security.UserDetailsToken;
 import com.mashup.betterday.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -28,8 +28,14 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         final String token = (String) authentication.getPrincipal();
 
-        final long id = jwtService.getPayload(token, "id", Long.class);
-        final String userId = jwtService.getSubject(token);
+        Long id = null;
+        String userId = null;
+        try {
+            id = jwtService.getPayload(token, "id", Long.class);
+            userId = jwtService.getSubject(token);
+        } catch (Exception e) {
+            throw BusinessException.from(ErrorCode.ACCESS_TOKEN_EXPIRED);
+        }
 
         PrincipalDetails principal = (PrincipalDetails) detailsService.loadUserByUsername(userId);
         User user = principal.getUser();

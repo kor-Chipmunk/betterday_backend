@@ -98,10 +98,15 @@ public class JwtService {
     }
 
     public boolean verifyRefreshToken(String token) {
-        return Jwts.parser()
-                .verifyWith(refreshTokenSecret)
-                .build()
-                .isSigned(token);
+        try {
+            Jwts.parser()
+                    .verifyWith(refreshTokenSecret)
+                    .build()
+                    .parseSignedClaims(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public <T> T getRefreshTokenPayload(String token, String key, Class<T> clazz) {
