@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.600.0",
+    "replicate": "^0.30.2"
+  }
+}
