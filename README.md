@@ -6,7 +6,7 @@
 ### Tech stacks
 
 * Language : Java 17
-* Server Framework : Spring Boot 3.3.3
+* Server Framework : Spring Boot 3.3.5
 * Database : PostgreSQL (for live), h2 (for local)
 * ORM : Spring Data JPA
 * Security : Spring Security / OAuth2
@@ -14,7 +14,7 @@
 
 ### Architecture
 
-TBA
+![architecture](./images/architecture.png)
 
 ### Modules
 
