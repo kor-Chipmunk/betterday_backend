@@ -40,4 +40,11 @@ out/
 *.log
 
 ### Json ###
-*.json
+src/**/*.json
+
+### docker ###
+.docker
+
+###
+*.p8
+*.pem
