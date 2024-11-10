@@ -45,3 +45,5 @@ include 'usecase:user-usecase'
 findProject(':usecase:user-usecase')?.name = 'user-usecase'
 include 'usecase:weekly-report-usecase'
 findProject(':usecase:weekly-report-usecase')?.name = 'weekly-report-usecase'
+
+include 'log'
