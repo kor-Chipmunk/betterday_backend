@@ -44,6 +44,7 @@
     * `jasypt-security` : Jasypt 암호화 모듈
     * `jwt-security` : JWT 토큰 모듈
     * `spring-security` : 스프링 시큐리티 모듈
+* `log` : 로그 모듈
 
 ### How to run
 
