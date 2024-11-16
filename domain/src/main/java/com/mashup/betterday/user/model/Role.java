@@ -1,5 +1,6 @@
 package com.mashup.betterday.user.model;
 
+import com.mashup.betterday.user.exception.AdminValidationException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
@@ -25,4 +26,9 @@ public enum Role {
         return maps.getOrDefault(role, UNKNOWN);
     }
 
+    public void checkAdmin() {
+        if (this != ADMIN) {
+            throw new AdminValidationException("관리자 권한이 필요합니다.");
+        }
+    }
 }
