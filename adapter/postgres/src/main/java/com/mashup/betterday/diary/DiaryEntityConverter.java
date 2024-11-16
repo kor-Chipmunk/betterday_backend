@@ -5,11 +5,10 @@ import com.mashup.betterday.diary.model.Diary;
 import com.mashup.betterday.diary.model.DiaryId;
 import com.mashup.betterday.user.model.UserId;
 import java.util.UUID;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class DiaryEntityConverter {
-
-    private DiaryEntityConverter() {
-    }
 
     public static DiaryEntity toEntity(Diary diary) {
         return new DiaryEntity(

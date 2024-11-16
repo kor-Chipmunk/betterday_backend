@@ -6,11 +6,10 @@ import com.mashup.betterday.report.model.ReportDate;
 import com.mashup.betterday.report.model.WeeklyReport;
 import com.mashup.betterday.report.model.WeeklyReportId;
 import com.mashup.betterday.user.model.UserId;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class WeeklyReportEntityConverter {
-
-    private WeeklyReportEntityConverter() {
-    }
 
     public static WeeklyReportEntity toEntity(WeeklyReport weeklyReport) {
         return new WeeklyReportEntity(
