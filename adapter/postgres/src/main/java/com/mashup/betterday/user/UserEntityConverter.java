@@ -4,11 +4,10 @@ import com.mashup.betterday.user.model.Account;
 import com.mashup.betterday.user.model.Provider;
 import com.mashup.betterday.user.model.User;
 import com.mashup.betterday.user.model.UserId;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class UserEntityConverter {
-
-    private UserEntityConverter() {
-    }
 
     public static UserEntity toEntity(User user) {
         return new UserEntity(

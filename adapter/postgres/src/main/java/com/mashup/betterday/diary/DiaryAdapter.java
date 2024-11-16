@@ -83,8 +83,8 @@ public class DiaryAdapter implements DiaryPort {
         if (diaryEntity == null) {
             throw BusinessException.from(ErrorCode.DIARY_NOT_FOUND);
         }
-        diaryJpaRepository.delete(diaryEntity);
-        return DiaryEntityConverter.toModel(diaryEntity);
+        diary.delete();
+        return DiaryEntityConverter.toModel(DiaryEntityConverter.toEntity(diary));
     }
 
     @Override

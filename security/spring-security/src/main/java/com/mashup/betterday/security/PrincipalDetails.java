@@ -2,10 +2,11 @@ package com.mashup.betterday.security;
 
 import com.mashup.betterday.user.model.User;
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @RequiredArgsConstructor
@@ -50,6 +51,6 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return Set.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
     }
 }

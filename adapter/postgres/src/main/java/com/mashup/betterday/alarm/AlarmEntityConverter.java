@@ -4,11 +4,10 @@ import com.mashup.betterday.alarm.model.Alarm;
 import com.mashup.betterday.alarm.model.AlarmId;
 import com.mashup.betterday.common.link.model.MusicLink;
 import com.mashup.betterday.diary.model.DiaryId;
-import com.mashup.betterday.user.model.UserId;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class AlarmEntityConverter {
-
-    private AlarmEntityConverter() {}
 
     public static AlarmEntity toEntity(Alarm alarm) {
         return new AlarmEntity(
