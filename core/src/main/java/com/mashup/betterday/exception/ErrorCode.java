@@ -23,6 +23,7 @@ public enum ErrorCode {
     WEEKLY_REPORT_CREATE_FAILED(400, "주간 리포트 등록에 실패했습니다."),
     WEEKLY_REPORT_NOT_FOUND(400, "주간 리포트를 조회할 수 없습니다."),
 
+    ACCESS_TOKEN_NOT_FOUND(401, "액세스 토큰을 찾을 수 없습니다."),
     ACCESS_TOKEN_EXPIRED(401, "액세스 토큰이 만료되었습니다."),
     REFRESH_TOKEN_CREATE_FAILED(401, "리프레시 토큰 생성에 실패했습니다."),
 

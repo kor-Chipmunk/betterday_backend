@@ -1,10 +1,13 @@
 package com.mashup.betterday;
 
+import com.mashup.betterday.exception.BusinessException;
+import com.mashup.betterday.exception.ErrorCode;
 import com.mashup.betterday.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -25,7 +28,8 @@ public class WebSecurityConfig {
     private static final String[] GET_WHITE_LIST = {
             "/", "/h2-console", "/h2-console/**", "/favicon.ico", // default
             "/v3/**", "/swagger-ui/**", "/swagger-resources/**", // swagger
-            "/api/v1/auth/oauth2/**" // oauth2
+            "/api/v1/auth/oauth2/**", // oauth2
+            "/api/v1/notices/**", // notice
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -53,9 +57,19 @@ public class WebSecurityConfig {
         );
 
         http.exceptionHandling(config ->
-                config.authenticationEntryPoint((request, response, authException) ->
-                        resolver.resolveException(request, response, null,
-                                (Exception) request.getAttribute("exception"))
+                config.authenticationEntryPoint((request, response, authException) -> {
+
+                            if (authException instanceof InsufficientAuthenticationException) {
+                                request.setAttribute("exception", BusinessException.from(ErrorCode.ACCESS_TOKEN_NOT_FOUND));
+                            }
+
+                            resolver.resolveException(
+                                    request,
+                                    response,
+                                    null,
+                                    (Exception) request.getAttribute("exception")
+                            );
+                        }
                 ));
 
         http.authorizeHttpRequests(auth ->
