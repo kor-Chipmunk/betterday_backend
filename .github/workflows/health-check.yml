@@ -1,0 +1,16 @@
+name: "API Health Check"
+
+on:
+  schedule:
+    - cron: "0 */8 * * *"
+
+jobs:
+  healthcheck:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Release API Health Check
+        uses: jtalk/url-health-check-action@v3
+        with:
+          url: "https://api.betterday.one/"
+          max-attempts: 3
+          retry-delay: 1s
